@@ -14,7 +14,7 @@ export default function LandingPage() {
   return (
    <>
    
-   
+   <HomePage/>
    <Range/>
    <AboutPage/>
    <EmbroideredCollection/>

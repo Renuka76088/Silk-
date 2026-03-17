@@ -16,6 +16,13 @@ import EQuotationForm from './Pages/EQuotationForm'
 import EAuctionForm from './Pages/EAuctionForm'
 import TenderContractsUI from './Pages/TenderContractsUI'
 import CareerPage from './Pages/CareerPage'
+import Navbar from './Components/Navbar'
+import Circular from './Pages/Circular'
+import Blog from './Pages/Blog'
+import CustomerReviews from './Pages/CustomerReviews'
+import VisitAppointment from './Pages/VisitAppointment'
+import MediaGallery from './Pages/MediaGallery'
+import TextileAssociates from './Pages/TextileAssociates'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,7 +30,7 @@ function App() {
   return (
     <>
     <BrowserRouter>
-    <HomePage/>
+ <Navbar/>
     <Routes>
 
       <Route path='/' element={<LandingPage/>}/>
@@ -36,6 +43,12 @@ function App() {
       <Route path='/page/e-auction' element={<EAuctionForm/>}/>
       <Route path='/page/tender-contract' element={<TenderContractsUI/>}/>
       <Route path='/page/career' element={<CareerPage/>}/>
+      <Route path='/page/circular' element={<Circular/>}/>
+      <Route path='/page/blog' element={<Blog/>}/>
+      <Route path='/page/customer-review' element={<CustomerReviews/>}/>
+      <Route path='/appointment' element={<VisitAppointment/>}/>
+      <Route path='/media' element={<MediaGallery/>}/>
+      <Route path='/associates' element={<TextileAssociates/>}/>
     </Routes>
      <Footer/>
     

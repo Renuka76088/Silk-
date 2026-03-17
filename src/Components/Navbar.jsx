@@ -1,6 +1,7 @@
+// Header.jsx
 import React, { useState } from "react";
 import { FaFacebook, FaWhatsapp, FaYoutube, FaInstagram } from "react-icons/fa";
-import { Menu, Search, ShoppingCart, Heart, User, X } from "lucide-react";
+import { Menu, Search, ShoppingCart, Heart, User, X, LocationEdit } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
@@ -10,11 +11,7 @@ export default function Navbar() {
     { name: "HOME", path: "/" },
     { name: "ABOUT US", path: "/about" },
     { name: "CONTACT US", path: "/contact" },
-    {
-      name: "PRODUCT PAGE",
-      path: "/products",
-      dropdown: ["Silk & Its Products"],
-    },
+    { name: "PRODUCT PAGE", path: "/products" },
     {
       name: "PAGES",
       path: "#",
@@ -39,9 +36,9 @@ export default function Navbar() {
     <>
       {/* Top Bar */}
       <div className="flex justify-between items-center px-4 md:px-8 py-2 text-xs md:text-sm bg-[#e9dede]">
-        <div>+91-8217771201</div>
+        <div>++91 111111111</div>
         <div className="hidden md:block">
-          HC PAREKH & ASSOCIATES - PAREKH SILK.
+          HC PAREKH & ASSOCIATES - PAREKH SILK (SURAT, GUJRAT)
         </div>
         <div className="flex items-center gap-3">
           <FaInstagram className="text-pink-500 cursor-pointer" />
@@ -50,12 +47,18 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Header */}
-      <div className="flex items-center justify-between px-4 md:px-8 py-3 md:py-4">
+      {/* Main Header */}
+      <div className="flex items-center justify-between px-4 md:px-8 py-3 md:py-4 bg-white">
+        {/* Mobile Menu Button */}
         <div className="md:hidden">
-          <Menu size={22} onClick={() => setMenuOpen(true)} />
+          <Menu
+            size={22}
+            onClick={() => setMenuOpen(true)}
+            className="cursor-pointer"
+          />
         </div>
 
+        {/* Logo */}
         <div className="text-center flex-1 md:flex-none">
           <div className="text-lg md:text-2xl tracking-widest font-medium">
             PAREKH SILK
@@ -65,11 +68,17 @@ export default function Navbar() {
           </div>
         </div>
 
+        {/* Desktop Search */}
         <div className="hidden md:flex items-center bg-gray-100 px-4 py-2 rounded-full w-1/3">
           <Search size={18} className="mr-2" />
-          <input className="bg-transparent outline-none w-full text-sm" />
+          <input
+            type="text"
+            placeholder="Search for products..."
+            className="bg-transparent outline-none w-full text-sm"
+          />
         </div>
 
+        {/* Icons */}
         <div className="flex items-center gap-3 md:gap-5">
           <Search className="md:hidden" size={20} />
           <Heart className="hidden md:block" size={20} />
@@ -84,15 +93,29 @@ export default function Navbar() {
       </div>
 
       {/* Desktop Navbar */}
-      <div className="hidden md:flex bg-[#efe5df] py-3 px-6 justify-center gap-6 lg:gap-9 text-sm uppercase">
+      <div className="hidden md:flex bg-[#efe5df] py-3 px-6 justify-center items-center gap-6 lg:gap-9 text-sm font-medium uppercase tracking-wide">
         {menuItems.map((item, index) => (
           <div key={index} className="relative group">
-            <Link to={item.path}>{item.name}</Link>
+            <Link
+              to={item.path}
+              className={`hover:text-[#8b5a2b] transition-colors duration-200 whitespace-nowrap ${
+                item.dropdown ? "cursor-default" : ""
+              }`}
+            >
+              {item.name}
+            </Link>
 
-            {item.dropdown && (
-              <div className="absolute hidden group-hover:block bg-white shadow-lg mt-1">
+            {item.dropdown && item.dropdown.length > 0 && (
+              <div className="absolute left-0 top-full mt-1 hidden group-hover:block bg-white shadow-xl rounded-md py-3 min-w-[220px] z-50 border border-gray-200">
                 {item.dropdown.map((sub, i) => (
-                  <Link key={i} to="#" className="block px-4 py-2">
+                  <Link
+                    key={i}
+                    to={`/page/${sub
+                      .toLowerCase()
+                      .replace(/ & /g, "-")
+                      .replace(/ /g, "-")}`}
+                    className="block px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#8b5a2b] transition"
+                  >
                     {sub}
                   </Link>
                 ))}
@@ -104,22 +127,60 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 left-0 w-full h-full bg-white z-50 transition ${
+        className={`fixed top-0 left-0 w-full h-full bg-white z-[100] transform transition-transform duration-300 ease-in-out ${
           menuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="flex justify-between p-5 border-b">
-          <span>Menu</span>
-          <X onClick={() => setMenuOpen(false)} />
+        <div className="flex justify-between items-center p-5 border-b">
+          <span className="font-semibold text-lg">Menu</span>
+          <X
+            size={28}
+            onClick={() => setMenuOpen(false)}
+            className="cursor-pointer"
+          />
         </div>
 
-        <div className="p-5 space-y-5">
-          {menuItems.map((item, i) => (
-            <div key={i}>
-              <Link to={item.path}>{item.name}</Link>
+        <div className="p-5 space-y-5 overflow-y-auto h-[calc(100%-80px)]">
+          {menuItems.map((item, index) => (
+            <div
+              key={index}
+              className="border-b border-gray-100 pb-3 last:border-0"
+            >
+              <Link
+                to={item.path || "#"}
+                className="font-medium block py-1"
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+
+              {item.dropdown && item.dropdown.length > 0 && (
+                <div className="pl-4 mt-2 space-y-2 text-sm text-gray-600">
+                  {item.dropdown.map((sub, i) => (
+                    <div
+                      key={i}
+                      className="cursor-pointer hover:text-[#8b5a2b]"
+                    >
+                      {sub}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
+      </div>
+
+      {/* WhatsApp Button */}
+      <div className="fixed bottom-6 right-6 z-[90] md:hidden">
+        <a
+          href="https://wa.me/918217771201"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-500 hover:bg-green-600 transition text-white p-4 rounded-full shadow-2xl flex items-center justify-center"
+        >
+          <FaWhatsapp size={26} />
+        </a>
       </div>
     </>
   );
