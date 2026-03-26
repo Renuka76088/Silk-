@@ -23,6 +23,7 @@ import CustomerReviews from './Pages/CustomerReviews'
 import VisitAppointment from './Pages/VisitAppointment'
 import MediaGallery from './Pages/MediaGallery'
 import TextileAssociates from './Pages/TextileAssociates'
+import ScrollToTop from '../ScrollToTop'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -30,6 +31,7 @@ function App() {
   return (
     <>
     <BrowserRouter>
+    <ScrollToTop />
  <Navbar/>
     <Routes>
 

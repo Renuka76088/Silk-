@@ -49,8 +49,9 @@ export default function Navbar() {
 
       {/* Main Header */}
       <div className="flex items-center justify-between px-4 md:px-8 py-3 md:py-4 bg-white">
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
+
+        {/* LEFT (Mobile Toggle) */}
+        <div className="flex items-center md:hidden">
           <Menu
             size={22}
             onClick={() => setMenuOpen(true)}
@@ -58,38 +59,60 @@ export default function Navbar() {
           />
         </div>
 
-        {/* Logo */}
-        <div className="text-center flex-1 md:flex-none">
-          <div className="text-lg md:text-2xl tracking-widest font-medium">
-            PAREKH SILK
-          </div>
-          <div className="text-[10px] md:text-xs tracking-[2px]">
-            THE FABRIC STORE
-          </div>
+        {/* LEFT (Desktop Logo) */}
+        <div className="hidden md:flex items-center">
+          <Link to="/" className="z-[130] flex items-center no-underline">
+            <div 
+              style={{
+                background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.3)'
+              }}
+              className="w-[42px] h-[42px] md:w-[48px] md:h-[48px] border-2 border-[#C5A27D] rounded-xl flex items-center justify-center mr-3 shrink-0 transition-all duration-300 hover:scale-105"
+            >
+              <span className="text-[#C5A27D] font-black text-2xl md:text-3xl leading-none">P</span>
+            </div>
+
+            <div className="flex flex-col justify-center">
+              <h1 className="flex items-center text-xl md:text-2xl font-black tracking-tighter uppercase leading-none">
+                <span className="text-[#4A4238]">PAREKH</span>
+                <span className="text-[#C5A27D]">SILK</span>
+              </h1>
+              <span className="text-[9px] md:text-[11px] font-bold tracking-[0.3em] text-[#8b8175] uppercase mt-1">
+                SURAT • GJ
+              </span>
+            </div>
+          </Link>
         </div>
 
-        {/* Desktop Search */}
-        <div className="hidden md:flex items-center bg-gray-100 px-4 py-2 rounded-full w-1/3">
-          <Search size={18} className="mr-2" />
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="bg-transparent outline-none w-full text-sm"
-          />
-        </div>
+        {/* CENTER (Mobile Logo) */}
+        <div className="flex md:hidden justify-center flex-1">
+          <Link to="/" className="z-[130] flex items-center no-underline">
+            <div 
+              style={{
+                background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.3)'
+              }}
+              className="w-[38px] h-[38px] border-2 border-[#C5A27D] rounded-xl flex items-center justify-center mr-2"
+            >
+              <span className="text-[#C5A27D] font-black text-xl leading-none">P</span>
+            </div>
 
-        {/* Icons */}
-        <div className="flex items-center gap-3 md:gap-5">
-          <Search className="md:hidden" size={20} />
-          <Heart className="hidden md:block" size={20} />
-          <div className="relative">
-            <ShoppingCart size={22} />
-            <span className="absolute -top-2 -right-2 text-[10px] bg-white border px-1">
-              0
+            <span className="text-lg font-black">
+              <span className="text-[#4A4238]">PAREKH</span>
+              <span className="text-[#C5A27D]">SILK</span>
             </span>
-          </div>
-          <User className="hidden md:block" size={20} />
+          </Link>
         </div>
+
+        {/* RIGHT (Get a Quote Button) */}
+        <div className="flex items-center">
+          <Link to="/page/trade-enquiry">
+            <button className="bg-[#C5A27D] hover:bg-[#a8845f] text-white px-4 md:px-6 py-2 rounded-md text-xs md:text-sm font-semibold transition">
+              Get a Quote
+            </button>
+          </Link>
+        </div>
+
       </div>
 
       {/* Desktop Navbar */}
@@ -105,15 +128,12 @@ export default function Navbar() {
               {item.name}
             </Link>
 
-            {item.dropdown && item.dropdown.length > 0 && (
+            {item.dropdown && (
               <div className="absolute left-0 top-full mt-1 hidden group-hover:block bg-white shadow-xl rounded-md py-3 min-w-[220px] z-50 border border-gray-200">
                 {item.dropdown.map((sub, i) => (
                   <Link
                     key={i}
-                    to={`/page/${sub
-                      .toLowerCase()
-                      .replace(/ & /g, "-")
-                      .replace(/ /g, "-")}`}
+                    to={`/page/${sub.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")}`}
                     className="block px-5 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#8b5a2b] transition"
                   >
                     {sub}
@@ -126,41 +146,25 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`fixed top-0 left-0 w-full h-full bg-white z-[100] transform transition-transform duration-300 ease-in-out ${
-          menuOpen ? "translate-y-0" : "-translate-y-full"
-        }`}
-      >
+      <div className={`fixed top-0 left-0 w-full h-full bg-white z-[100] transform transition-transform duration-300 ${
+        menuOpen ? "translate-y-0" : "-translate-y-full"
+      }`}>
         <div className="flex justify-between items-center p-5 border-b">
           <span className="font-semibold text-lg">Menu</span>
-          <X
-            size={28}
-            onClick={() => setMenuOpen(false)}
-            className="cursor-pointer"
-          />
+          <X size={28} onClick={() => setMenuOpen(false)} className="cursor-pointer" />
         </div>
 
         <div className="p-5 space-y-5 overflow-y-auto h-[calc(100%-80px)]">
           {menuItems.map((item, index) => (
-            <div
-              key={index}
-              className="border-b border-gray-100 pb-3 last:border-0"
-            >
-              <Link
-                to={item.path || "#"}
-                className="font-medium block py-1"
-                onClick={() => setMenuOpen(false)}
-              >
+            <div key={index} className="border-b border-gray-100 pb-3 last:border-0">
+              <Link to={item.path || "#"} className="font-medium block py-1" onClick={() => setMenuOpen(false)}>
                 {item.name}
               </Link>
 
-              {item.dropdown && item.dropdown.length > 0 && (
+              {item.dropdown && (
                 <div className="pl-4 mt-2 space-y-2 text-sm text-gray-600">
                   {item.dropdown.map((sub, i) => (
-                    <div
-                      key={i}
-                      className="cursor-pointer hover:text-[#8b5a2b]"
-                    >
+                    <div key={i} className="cursor-pointer hover:text-[#8b5a2b]">
                       {sub}
                     </div>
                   ))}
