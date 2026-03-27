@@ -145,6 +145,19 @@ export default function Navbar() {
         ))}
       </div>
 
+      {/* WhatsApp Button */}
+<div className="fixed bottom-6 right-6 z-[200]">
+  <a
+    href="https://wa.me/918217771201"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-green-500 hover:bg-green-600 transition-all duration-300 text-white p-4 rounded-full shadow-2xl flex items-center justify-center hover:scale-110"
+  >
+    <FaWhatsapp size={26} />
+  </a>
+</div>
+
+
       {/* Mobile Menu */}
       <div className={`fixed top-0 left-0 w-full h-full bg-white z-[100] transform transition-transform duration-300 ${
         menuOpen ? "translate-y-0" : "-translate-y-full"
