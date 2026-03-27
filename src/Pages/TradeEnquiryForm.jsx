@@ -9,8 +9,8 @@ export default function TradeEnquiryForm() {
         {/* Form Header */}
         <div className="p-10 text-brown relative">
           <div className="absolute top-0 right-0 w-32 h-32 opacity-20 rounded-full -mr-10 -mt-10 blur-2xl"></div>
-          <h2 className="text-4xl font-light tracking-tight mb-2 ">Trade <span className="font-bold">Enquiry</span></h2>
-          <p className="text-balck/70 text-sm">Apply for Membership (e-Form) - Chamber of Textile</p>
+          <h2 className="text-4xl mb-2 font-bold">Trade <span className="font-bold">Enquiry</span></h2>
+          <p className="text-balck/70 text-sm">Apply for Membership - Chamber of Textile</p>
         </div>
 
         <form className="p-10 space-y-8">

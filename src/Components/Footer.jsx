@@ -23,10 +23,10 @@ export default function Footer() {
 
   {/* 🟢 Text Section (Zero Space) */}
   <div className="flex flex-col justify-center">
-    <h1 className="flex items-center text-xl md:text-2xl font-black tracking-tighter uppercase leading-none">
-      <span className="text-[#4A4238]">PAREKH</span>
-      <span className="text-[#C5A27D]">SILK</span>
-    </h1>
+<h1 className="flex items-center gap-x-1 text-xl md:text-2xl font-black tracking-tighter leading-none">
+  <span className="text-[#4A4238]">PAREKH</span>
+  <span className="text-[#C5A27D]">SILK</span>
+</h1>
     <span className="text-[9px] md:text-[11px] font-bold tracking-[0.3em] text-[#8b8175] uppercase mt-1">
       SURAT • GJ
     </span>
