@@ -12,7 +12,7 @@ export default function EQuotationForm() {
         
         {/* Header - deep bronze/gold silk color */}
         <div className="bg-[#8B5E3C] p-8 text-white">
-          <h1 className="text-3xl font-bold tracking-tight">E-QUOTATION FORM</h1>
+          <h1 className="text-3xl font-bold tracking-tight">e-QUOTATION FORM</h1>
           <p className="text-sm text-[#F3E5D8] mt-1 font-medium">Parekh Textile Chambers - Official Estimate</p>
         </div>
 

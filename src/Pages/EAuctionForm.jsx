@@ -13,7 +13,7 @@ export default function EAuctionForm() {
         <div className="bg-[#8B5E3C] p-8 text-white">
           <div className="flex items-center gap-3 mb-2">
             <Gavel size={28} />
-            <h1 className="text-3xl font-bold tracking-tight uppercase">E-Auction Registration</h1>
+            <h1 className="text-3xl font-bold tracking-tight">e-AUCTION REGISTRATION</h1>
           </div>
           <p className="text-sm text-[#F3E5D8] font-medium">Parekh Textile Chambers - Inventory & Asset Auction Portal</p>
         </div>
