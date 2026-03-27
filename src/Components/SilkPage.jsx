@@ -10,7 +10,7 @@ const products = [
     id: 5,
     category: "Dupioni Silk Fabric",
     name: "Black Raw Silk Fabric",
-    price: "₹899.00",
+    price: "",
     img: "https://images.unsplash.com/photo-1637750586228-179a1a7aef84?w=600&auto=format&fit=crop&q=60",
     isProduct: true
   },
