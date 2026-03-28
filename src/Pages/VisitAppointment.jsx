@@ -224,10 +224,7 @@ export default function VisitAppointment() {
         </div>
       </main>
 
-      {/* Footer Accent */}
-      <footer className="relative py-8 text-center text-sm text-gray-500 border-t border-[#e9dede]/50 bg-white/40 backdrop-blur-sm">
-        © {new Date().getFullYear()} HC Parekh & Associates – Parekh Silk | The Fabric Store
-      </footer>
+     
     </div>
   );
 }
