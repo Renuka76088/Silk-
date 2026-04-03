@@ -1,7 +1,7 @@
 // Header.jsx
-import React, { useState } from "react";
-import { FaFacebook, FaWhatsapp, FaYoutube, FaInstagram } from "react-icons/fa";
-import { Menu, Search, ShoppingCart, Heart, User, X, LocationEdit } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { FaFacebook, FaWhatsapp, FaYoutube, FaInstagram , FaRegCommentDots } from "react-icons/fa";
+import { Menu, Search, ShoppingCart, Heart, User,Send, X, LocationEdit } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
@@ -31,6 +31,40 @@ export default function Navbar() {
     { name: "MEDIA GALLERY", path: "/media" },
     { name: "TEXTILE ASSOCIATES", path: "/associates" },
   ];
+  
+  // --- Chatbot States ---
+  const [chatOpen, setChatOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([
+    { role: "ai", text: "Namaste! 🙏 Welcome to Parekh Silk. How can I help you today?" }
+  ]);
+  const chatEndRef = useRef(null);
+
+  // Auto scroll to bottom of chat
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    const userMsg = { role: "user", text: input };
+    setMessages((prev) => [...prev, userMsg]);
+    setInput("");
+
+    // AI Simulated Reply (You can connect your API here)
+    setTimeout(() => {
+      let aiResponse = "Thank you for reaching out! Our team will assist you with your query about silk products shortly.";
+      if (input.toLowerCase().includes("price") || input.toLowerCase().includes("rate")) {
+        aiResponse = "Our silk collection starts from ₹520. You can check the Product Page for detailed pricing.";
+      } else if (input.toLowerCase().includes("location") || input.toLowerCase().includes("address")) {
+        aiResponse = "We are located in Surat, Gujarat, India. 🇮🇳";
+      }
+      
+      setMessages((prev) => [...prev, { role: "ai", text: aiResponse }]);
+    }, 1000);
+  };
 
   return (
     <>
@@ -78,7 +112,7 @@ export default function Navbar() {
   <span className="text-[#C5A27D]">SILK</span>
 </h1>
               <span className="text-[9px] md:text-[11px] font-bold tracking-[0.3em] text-[#8b8175] mt-1">
-                SURAT • GJ
+                SURAT • GJ, INDIA
               </span>
             </div>
           </Link>
@@ -157,7 +191,61 @@ export default function Navbar() {
   </a>
 </div>
 
+{/* --- AI CHATBOT IMPLEMENTATION --- */}
+      <div className="fixed bottom-24 right-6 z-[200] flex flex-col items-end">
+        {/* Chat Window */}
+        {chatOpen && (
+          <div className="w-[300px] md:w-[350px] h-[400px] md:h-[450px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-200 mb-4 animate-in fade-in slide-in-from-bottom-5 duration-300">
+            {/* Header */}
+            <div className="bg-[#C5A27D] p-4 text-white flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="font-bold text-sm">Parekh AI Assistant</span>
+              </div>
+              <X size={20} className="cursor-pointer hover:rotate-90 transition-transform" onClick={() => setChatOpen(false)} />
+            </div>
 
+            {/* Messages Area */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+              {messages.map((msg, idx) => (
+                <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-[80%] p-3 rounded-2xl text-xs md:text-sm shadow-sm ${
+                    msg.role === 'user' 
+                    ? 'bg-[#C5A27D] text-white rounded-br-none' 
+                    : 'bg-white text-gray-800 rounded-bl-none'
+                  }`}>
+                    {msg.text}
+                  </div>
+                </div>
+              ))}
+              <div ref={chatEndRef} />
+            </div>
+
+            {/* Input Area */}
+            <form onSubmit={handleSendMessage} className="p-3 border-t bg-white flex gap-2">
+              <input 
+                type="text" 
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask something..." 
+                className="flex-1 text-sm border border-gray-200 rounded-full px-4 py-2 focus:outline-none focus:border-[#C5A27D]"
+              />
+              <button type="submit" className="bg-[#C5A27D] text-white p-2 rounded-full hover:scale-110 transition shadow-md">
+                <Send size={18} />
+              </button>
+            </form>
+          </div>
+        )}
+
+        {/* Chat Toggle Button */}
+        <button
+          onClick={() => setChatOpen(!chatOpen)}
+          className="bg-[#4A4238] hover:bg-black transition-all duration-300 text-white p-4 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 group relative"
+        >
+          {chatOpen ? <X size={26} /> : <FaRegCommentDots size={26} />}
+          {!chatOpen && <span className="absolute -top-12 right-0 bg-white text-[#4A4238] text-[10px] py-1 px-3 rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity font-bold border border-gray-100">Chat with AI</span>}
+        </button>
+      </div>
       {/* Mobile Menu */}
       <div className={`fixed top-0 left-0 w-full h-full bg-white z-[100] transform transition-transform duration-300 ${
         menuOpen ? "translate-y-0" : "-translate-y-full"

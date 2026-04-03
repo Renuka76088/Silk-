@@ -28,7 +28,7 @@ export default function Footer() {
   <span className="text-[#C5A27D]">SILK</span>
 </h1>
     <span className="text-[9px] md:text-[11px] font-bold tracking-[0.3em] text-[#8b8175] uppercase mt-1">
-      SURAT • GJ
+      SURAT • GJ, INDIA
     </span>
   </div>
 </Link>
@@ -95,7 +95,7 @@ export default function Footer() {
           <h4 className="font-semibold mb-4" style={{ color: "#d6bfa9" }}>Contact</h4>
           <p className="text-sm text-gray-700 mb-2">+91-1111111</p>
           <p className="text-sm text-gray-700 mb-2">parekhsilks@example.com</p>
-          <p className="text-sm text-gray-700">Gujrat, India</p>
+          <p className="text-sm text-gray-700">SURAT • GJ, INDIA</p>
         </div>
 
         {/* Social Media */}
