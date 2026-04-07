@@ -18,88 +18,128 @@ export default function EAuctionForm() {
           <p className="text-sm text-[#F3E5D8] font-medium">Parekh Textile Chambers - Inventory & Asset Auction Portal</p>
         </div>
 
-        <form className="p-8 space-y-10">
+      <form className="p-8 space-y-10">
+
+  {/* Section 1: Participant Details (Updated) */}
+  <div className="space-y-6">
+    <h2 className="text-xl font-bold border-b-2 border-[#F3E5D8] pb-2 text-[#8B5E3C]">
+      Participant Information
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+      {/* Name */}
+      <div className="space-y-4">
+        <label className="block text-lg font-semibold text-gray-800">
+          Name of the Participant
+        </label>
+        <input 
+          type="text" 
+          placeholder="Enter Name"
+          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
+        />
+      </div>
+
+      {/* Business Name */}
+      <div className="space-y-4">
+        <label className="block text-lg font-semibold text-gray-800">
+          Legal Name of the Business
+        </label>
+        <input 
+          type="text" 
+          placeholder="Enter Business Name"
+          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
+        />
+      </div>
+
+      {/* Address */}
+      <div className="md:col-span-2 space-y-4">
+        <label className="block text-lg font-semibold text-gray-800">
+          Business Address with Pin Code
+        </label>
+        <textarea 
+          rows="2"
+          placeholder="Enter Full Address"
+          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
+        />
+      </div>
+
+      {/* GST */}
+      <div className="space-y-4">
+        <label className="block text-lg font-semibold text-gray-800">
+          GST No.
+        </label>
+        <input 
+          type="text" 
+          placeholder="Enter GST Number"
+          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
+        />
+      </div>
+
+      {/* Mobile */}
+      <div className="space-y-4">
+        <label className="block text-lg font-semibold text-gray-800">
+          Mobile No.
+        </label>
+        <input 
+          type="tel" 
+          placeholder="+91 00000 00000"
+          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
+        />
+      </div>
+
+      {/* Email */}
+      <div className="md:col-span-2 space-y-4">
+        <label className="block text-lg font-semibold text-gray-800">
+          Email Id
+        </label>
+        <input 
+          type="email" 
+          placeholder="example@email.com"
+          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
+        />
+      </div>
+
+      {/* Upload GST */}
+      <div className="md:col-span-2 space-y-2">
+        <label className="text-[15px] font-bold text-gray-700">
+          Upload GST Certificate
+        </label>
+
+        <label className="border-2 border-dashed border-[#EADBC8] rounded-xl p-6 text-center bg-[#FAF9F6] hover:bg-[#F3E5D8]/30 transition-all cursor-pointer block">
           
-          {/* Section 1: Item & Auction Details */}
-          <div className="space-y-6">
-            <h2 className="text-xl font-bold border-b-2 border-[#F3E5D8] pb-2 text-[#8B5E3C]">Asset Information</h2>
-            
-            <div className="space-y-4">
-              <label className="block text-lg font-semibold text-gray-800">Item / Asset Description</label>
-              <textarea 
-                rows="2" 
-                placeholder="Ex: Lot of 500 Meters Pure Banarasi Silk Fabric (Grade A+)" 
-                className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6] resize-none"
-              ></textarea>
-            </div>
+          <input 
+            type="file" 
+            accept=".pdf,.jpg,.jpeg,.png"
+            className="hidden"
+            onChange={(e) => console.log(e.target.files[0])}
+          />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <label className="block text-lg font-semibold text-gray-800">Auction Start Date</label>
-                <div className="relative">
-                  <input type="date" className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]" />
-                </div>
-              </div>
-              <div className="space-y-4">
-                <label className="block text-lg font-semibold text-gray-800">Auction Duration (Hours)</label>
-                <input type="number" placeholder="Ex: 24" className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]" />
-              </div>
-            </div>
-          </div>
+          <p className="text-sm text-gray-500">
+            Click to upload or drag & drop GST Certificate
+          </p>
+        </label>
+      </div>
 
-          {/* Section 2: Pricing & Bidding Rules */}
-          <div className="space-y-6">
-            <h2 className="text-xl font-bold border-b-2 border-[#F3E5D8] pb-2 text-[#8B5E3C]">Bidding Parameters</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="space-y-4">
-                <label className="block text-lg font-semibold text-gray-800">Reserve Price (₹)</label>
-                <input type="number" placeholder="Min. Price" className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg font-bold text-[#8B5E3C] focus:border-[#B8860B] outline-none bg-[#FAF9F6]" />
-              </div>
-              <div className="space-y-4">
-                <label className="block text-lg font-semibold text-gray-800">Increment Value (₹)</label>
-                <input type="number" placeholder="Min. Raise" className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]" />
-              </div>
-              <div className="space-y-4">
-                <label className="block text-lg font-semibold text-gray-800">EMD Amount (₹)</label>
-                <input type="number" placeholder="Security Deposit" className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]" />
-              </div>
-            </div>
-          </div>
+    </div>
+  </div>
 
-          {/* Section 3: Legal & Terms */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-[#F3E5D8] pt-8">
-            <div className="space-y-4">
-              <label className="block text-lg font-semibold text-gray-800 text-flex items-center gap-2">
-                <ShieldCheck size={20} className="text-[#B8860B]" /> Auction Terms
-              </label>
-              <textarea 
-                rows="4" 
-                placeholder="Enter rules for participation, payment deadlines, and delivery conditions..." 
-                className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none resize-none bg-[#FAF9F6]"
-              ></textarea>
-            </div>
 
-            <div className="bg-[#FAF9F6] p-6 rounded-md border border-[#EADBC8] flex flex-col justify-center text-center">
-              <Landmark size={48} className="mx-auto text-[#8B5E3C] mb-4 opacity-30" />
-              <p className="text-sm text-gray-600 italic">
-                All auctions under Parekh Textile Chambers follow the Standard Bidding Protocol. 
-                Please ensure all bank details for EMD are verified.
-              </p>
-            </div>
-          </div>
 
-          {/* Action Buttons */}
-          <div className="flex justify-end gap-4 pt-6 border-t border-[#F3E5D8]">
-            <button type="button" className="px-8 py-3 border-2 border-[#EADBC8] rounded-full text-lg font-bold hover:bg-[#FAF9F6] transition-all text-gray-700">
-              Save Draft
-            </button>
-            <button type="submit" className="px-10 py-3 bg-[#B8860B] hover:bg-[#8B5E3C] text-white rounded-full text-lg font-bold transition-all flex items-center gap-2 shadow-md">
-              Publish Auction <Send size={20} />
-            </button>
-          </div>
+  {/* Buttons (UNCHANGED) */}
+  <div className="flex justify-end gap-4 pt-6 border-t border-[#F3E5D8]">
+    
+    <button type="button" className="px-8 py-3 border-2 border-[#EADBC8] rounded-full text-lg font-bold hover:bg-[#FAF9F6] transition-all text-gray-700">
+      Save Draft
+    </button>
 
-        </form>
+    <button type="submit" className="px-10 py-3 bg-[#B8860B] hover:bg-[#8B5E3C] text-white rounded-full text-lg font-bold transition-all flex items-center gap-2 shadow-md">
+      Publish Auction <Send size={20} />
+    </button>
+
+  </div>
+
+</form>
       </div>
       
       {/* Footer Decoration */}

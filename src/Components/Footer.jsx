@@ -33,7 +33,10 @@ export default function Footer() {
   </div>
 </Link>
           <p className="text-sm text-gray-700 mt-3">
-            Bringing you the finest silk fabrics with elegance and style. Explore our designer collection and handcrafted embroidered fabrics.
+            Parekh Silk is a trusted Manufacturers & Supplier of the high standard quality
+of the Silk Products from lower range to higher range at reasonable and low
+price range with best and premium quality, with Quality Assurance and a
+Quality Seal
           </p>
         </div>
 
@@ -91,12 +94,44 @@ export default function Footer() {
         </div>
 
         {/* Contact Info */}
-        <div>
-          <h4 className="font-semibold mb-4" style={{ color: "#d6bfa9" }}>Contact</h4>
-          <p className="text-sm text-gray-700 mb-2">+91-1111111</p>
-          <p className="text-sm text-gray-700 mb-2">parekhsilks@example.com</p>
-          <p className="text-sm text-gray-700">SURAT • GJ, INDIA</p>
-        </div>
+    <div>
+  <h4 
+    className="font-semibold mb-4 text-lg tracking-wide" 
+    style={{ color: "#d6bfa9" }}
+  >
+    Contact
+  </h4>
+
+  {/* Phone */}
+  <p className="text-sm text-gray-700 mb-3">
+    📞 6353778329
+  </p>
+
+  {/* Trade Enquiry */}
+  <div className="mb-3">
+    <p className="text-sm font-semibold text-[#4A4238]">
+      Trade Enquiry
+    </p>
+    <p className="text-sm text-gray-600">
+      trade-enquiry@parekhsilk.com
+    </p>
+  </div>
+
+  {/* Customer Care */}
+  <div className="mb-3">
+    <p className="text-sm font-semibold text-[#4A4238]">
+      Customer Care
+    </p>
+    <p className="text-sm text-gray-600">
+      customer-care@parekhsilk.com
+    </p>
+  </div>
+
+  {/* Location */}
+  <p className="text-sm text-gray-700 mt-4 tracking-widest">
+    📍 SURAT • GJ, INDIA
+  </p>
+</div>
 
         {/* Social Media */}
         <div>

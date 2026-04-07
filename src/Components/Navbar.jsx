@@ -70,7 +70,7 @@ export default function Navbar() {
     <>
       {/* Top Bar */}
       <div className="flex justify-between items-center px-4 md:px-8 py-2 text-xs md:text-sm bg-[#e9dede]">
-        <div>++91 111111111</div>
+        <div>6353778329</div>
         <div className="hidden md:block">
           HC PAREKH & ASSOCIATES - PAREKH SILK (SURAT, GUJRAT)
         </div>

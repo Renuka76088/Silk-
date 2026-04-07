@@ -93,124 +93,149 @@ export default function VisitAppointment() {
             Book Your Visit
           </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Full Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d6bfa9] focus:border-transparent transition"
-                  placeholder="Your name"
-                />
-              </div>
+        <form onSubmit={handleSubmit} className="space-y-6">
 
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d6bfa9] focus:border-transparent transition"
-                  placeholder="your.email@example.com"
-                />
-              </div>
-            </div>
+  {/* Visitor Name */}
+  <div>
+    <label className="block text-gray-700 font-medium mb-2">
+      Name of the Visitor *
+    </label>
+    <input
+      type="text"
+      name="visitorName"
+      value={formData.visitorName}
+      onChange={handleChange}
+      required
+      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
+      placeholder="Enter full name"
+    />
+  </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Phone Number *</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d6bfa9] focus:border-transparent transition"
-                  placeholder="+91 XXXXX XXXXX"
-                />
-              </div>
+  {/* Business Name */}
+  <div>
+    <label className="block text-gray-700 font-medium mb-2">
+      Name of the Business *
+    </label>
+    <input
+      type="text"
+      name="businessName"
+      value={formData.businessName}
+      onChange={handleChange}
+      required
+      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
+      placeholder="Business / Company name"
+    />
+  </div>
 
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Preferred Date *</label>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d6bfa9] focus:border-transparent transition"
-                />
-              </div>
-            </div>
+  {/* Address */}
+  <div>
+    <label className="block text-gray-700 font-medium mb-2">
+      Visitor Address with Pin Code *
+    </label>
+    <textarea
+      name="address"
+      value={formData.address}
+      onChange={handleChange}
+      required
+      rows={3}
+      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
+      placeholder="Full address with PIN code"
+    ></textarea>
+  </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Preferred Time Slot *</label>
-                <select
-                  name="time"
-                  value={formData.time}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d6bfa9] focus:border-transparent transition bg-white"
-                >
-                  <option value="">Select time</option>
-                  <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM</option>
-                  <option value="12:30 PM - 02:30 PM">12:30 PM - 02:30 PM</option>
-                  <option value="03:00 PM - 05:00 PM">03:00 PM - 05:00 PM</option>
-                  <option value="05:30 PM - 07:00 PM">05:30 PM - 07:00 PM</option>
-                </select>
-              </div>
+  {/* Mobile + Email */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label className="block text-gray-700 font-medium mb-2">
+        Mobile No. *
+      </label>
+      <input
+        type="tel"
+        name="mobile"
+        value={formData.mobile}
+        onChange={handleChange}
+        required
+        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
+        placeholder="+91 XXXXX XXXXX"
+      />
+    </div>
 
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Purpose of Visit *</label>
-                <select
-                  name="purpose"
-                  value={formData.purpose}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d6bfa9] focus:border-transparent transition bg-white"
-                >
-                  <option value="">Select purpose</option>
-                  <option value="Product Viewing">Product Viewing / Sampling</option>
-                  <option value="Bulk Order Discussion">Bulk Order Discussion</option>
-                  <option value="Customization Enquiry">Customization Enquiry</option>
-                  <option value="Partnership / Collaboration">Partnership / Collaboration</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-            </div>
+    <div>
+      <label className="block text-gray-700 font-medium mb-2">
+        Email Id *
+      </label>
+      <input
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
+        placeholder="your@email.com"
+      />
+    </div>
+  </div>
 
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">Additional Message / Requirements</label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d6bfa9] focus:border-transparent transition"
-                placeholder="Any specific requirements or questions..."
-              ></textarea>
-            </div>
+  {/* ID Proof Upload */}
+  <div>
+    <label className="block text-gray-700 font-medium mb-2">
+      Upload Residential / Business Proof *
+    </label>
+    <input
+      type="file"
+      name="proof"
+      onChange={handleChange}
+      required
+      className="w-full px-4 py-3 border border-gray-300 rounded-md bg-white"
+    />
+  </div>
 
-            <div className="text-center">
-              <button
-                type="submit"
-                className="bg-[#8b5a2b] text-white px-10 py-4 rounded-md font-medium hover:bg-[#a16a3a] transition transform hover:scale-105 duration-300 shadow-md"
-              >
-                Submit Appointment Request
-              </button>
-            </div>
+  {/* ID Type Dropdown */}
+  <div>
+    <label className="block text-gray-700 font-medium mb-2">
+      Select Proof Type *
+    </label>
+    <select
+      name="proofType"
+      value={formData.proofType}
+      onChange={handleChange}
+      required
+      className="w-full px-4 py-3 border border-gray-300 rounded-md bg-white focus:ring-2 focus:ring-[#d6bfa9]"
+    >
+      <option value="">Select option</option>
+      <option value="Aadhaar Card">Aadhaar Card</option>
+      <option value="ECI Card">ECI Card</option>
+      <option value="Driving License">DL</option>
+    </select>
+  </div>
 
-            <p className="text-center text-sm text-gray-600 mt-4">
-              We will confirm your appointment within 24-48 hours via email/phone.
-            </p>
-          </form>
+  {/* Reason */}
+  <div>
+    <label className="block text-gray-700 font-medium mb-2">
+      Describe the Reason for Visit *
+    </label>
+    <textarea
+      name="reason"
+      value={formData.reason}
+      onChange={handleChange}
+      required
+      rows={4}
+      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
+      placeholder="Explain purpose of your visit..."
+    ></textarea>
+  </div>
+
+  {/* Submit */}
+  <div className="text-center">
+    <button
+      type="submit"
+      className="bg-[#8b5a2b] text-white px-10 py-4 rounded-md font-medium hover:bg-[#a16a3a] transition"
+    >
+      Submit Appointment Request
+    </button>
+  </div>
+
+</form>
         </div>
 
         {/* Additional Info */}
@@ -219,7 +244,7 @@ export default function VisitAppointment() {
             Showroom Address: HC Parekh & Associates, Parekh Silk – The Fabric Store
           </p>
           <p className="text-sm">
-            Contact: ++91 111111111 | Email: hemant.parekh2012@gmail.com
+            Contact: 6353778329 | Email: hemant.parekh2012@gmail.com
           </p>
         </div>
       </main>

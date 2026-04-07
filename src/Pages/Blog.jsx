@@ -59,74 +59,60 @@ export default function Blog() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#f9f5f0]/90 via-[#f5ede3]/85 to-[#efe5df]/80"></div>
       </div>
 
-      {/* Main Content */}
-      <main className="relative pt-8 pb-16 px-4 md:px-8 max-w-7xl mx-auto">
-        {/* Page Title */}
-        <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl md:text-5xl font-light tracking-[4px] uppercase text-[#8b5a2b] mb-3">
-            Our Blog
-          </h1>
-          <p className="text-lg md:text-xl text-gray-600 tracking-wide">
-            Stories, Tips & Insights from the World of Pure Silk
-          </p>
-          <div className="w-24 h-1 bg-[#d6bfa9] mx-auto mt-6 rounded-full"></div>
-        </div>
+ {/* Main Content */}
+<main className="relative pt-8 pb-16 px-4 md:px-8 max-w-7xl mx-auto">
 
-        {/* Blog Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-          {blogPosts.map((post) => (
-            <article
-              key={post.id}
-              className="group bg-white/70 backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-[#e9dede]/60"
-            >
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
+  {/* Page Title */}
+  <div className="text-center mb-12 md:mb-16">
+    <h1 className="text-4xl md:text-5xl font-light tracking-[4px] uppercase text-[#8b5a2b] mb-3">
+      Our Blog
+    </h1>
+    <p className="text-lg md:text-xl text-gray-600 tracking-wide">
+      Stories, Tips & Insights from the World of Pure Silk
+    </p>
+    <div className="w-24 h-1 bg-[#d6bfa9] mx-auto mt-6 rounded-full"></div>
+  </div>
 
-              <div className="p-6">
-                <div className="text-xs text-gray-500 mb-2">{post.date}</div>
-                <h2 className="text-xl font-medium mb-3 line-clamp-2 group-hover:text-[#8b5a2b] transition-colors">
-                  {post.title}
-                </h2>
-                <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
-                <Link
-                  to={`/blog/${post.id}`}
-                  className="inline-flex items-center text-[#8b5a2b] font-medium hover:text-[#a16a3a] transition-colors"
-                >
-                  Read More
-                  <span className="ml-2">→</span>
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+  {/* Blog Grid */}
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
 
-        {/* Pagination (simple example) */}
-        <div className="flex justify-center mt-12 gap-4">
-          <button className="px-5 py-2 bg-[#d6bfa9]/80 rounded-md hover:bg-[#d6bfa9] transition">
-            Previous
-          </button>
-          <button className="px-5 py-2 bg-[#8b5a2b] text-white rounded-md hover:bg-[#a16a3a] transition">
-            1
-          </button>
-          <button className="px-5 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
-            2
-          </button>
-          <button className="px-5 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition">
-            Next
-          </button>
-        </div>
-      </main>
+    {/* Default Blog Card */}
+    <article className="group bg-white/70 backdrop-blur-sm rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-[#e9dede]/60">
+      
+      <div className="relative h-56 overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1617055407123-3d7130c1f940?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2lsa3xlbnwwfHwwfHx8MA%3D%3D"
+          alt="Textile Industry"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      </div>
 
-      {/* Optional: subtle footer accent */}
-      <footer className="relative py-8 text-center text-sm text-gray-500 border-t border-[#e9dede]/50">
-        © {new Date().getFullYear()} Parekh Silk – The Fabric Store
-      </footer>
+      <div className="p-6">
+        <div className="text-xs text-gray-500 mb-2">HC Parekh • India</div>
+
+        <h2 className="text-xl font-medium mb-3 group-hover:text-[#8b5a2b] transition-colors">
+          Blog & Article
+        </h2>
+
+        <p className="text-gray-600 mb-4">
+          Join and participate in our nation-wide campaign to digitalize the Textile Sector, one of the largest sectors of India.
+        </p>
+
+        <Link
+          to="#"
+          className="inline-flex items-center text-[#8b5a2b] font-medium hover:text-[#a16a3a] transition-colors"
+        >
+          Read More
+          <span className="ml-2">→</span>
+        </Link>
+      </div>
+    </article>
+
+  </div>
+
+</main>
+
     </div>
   );
 }

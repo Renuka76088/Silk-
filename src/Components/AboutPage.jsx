@@ -16,37 +16,33 @@ function AboutPage() {
     </div>
 
     {/* Right Content */}
-    <div className="opacity-0 animate-[fadeRight_0.8s_ease-out_forwards] delay-200">
+   <div className="opacity-0 animate-[fadeRight_0.8s_ease-out_forwards] delay-200">
+  {/* TOP SUBHEADING */}
+  {/* <p className="text-sm tracking-[0.2em] text-[#b89b84] mb-3 font-bold">
+    ABOUT PAREKH SILK
+  </p> */}
 
-      <p className="text-sm tracking-widest text-[#b89b84] mb-2">
-        ABOUT PAREKH SILK
-      </p>
+  {/* MAIN HEADING */}
+  <h2 className="text-2xl md:text-4xl font-semibold mb-6 leading-tight">
+       ABOUT PAREKH 
+    <span className="ms-3 text-[#b89b84]">SILK</span>
+  </h2>
 
-      <h2 className="text-2xl md:text-3xl font-semibold mb-4">
-        Timeless Fabrics Crafted with Tradition & Excellence
-      </h2>
+  {/* NEW DETAILED CONTENT */}
+  <p className="text-gray-700 text-sm md:text-lg mb-5 leading-relaxed">
+Parekh Silk is a trusted Manufacturers & Supplier of the high standard quality
+of the Silk Products from lower range to higher range at reasonable and low
+price range with best and  <span className="font-medium text-black">premium quality, with Quality Assurance and a
+Quality Seal.
+   </span>
+  </p>
 
-      <p className="text-gray-600 text-sm md:text-base mb-4">
-        Parekh Silk is a trusted name in premium fabrics, offering pure silk,
-        cotton, and linen materials crafted with elegance and quality.
-      </p>
 
-      <p className="text-gray-600 text-sm md:text-base mb-6">
-        With years of expertise, we deliver rich textures and timeless designs
-        trusted by designers and wholesalers.
-      </p>
-
-      <div className="grid grid-cols-2 gap-4 text-sm mb-6">
-        <div>✔ Premium Quality</div>
-        <div>✔ Trusted Brand</div>
-        <div>✔ Wide Range</div>
-        <div>✔ Wholesale</div>
-      </div>
-
-      <button className="bg-[#d6bfa9] px-6 py-2 text-sm font-medium">
-        Explore Collection
-      </button>
-    </div>
+  {/* BUTTON */}
+  <button className="bg-[#d6bfa9] hover:bg-[#b89b84] transition-colors px-8 py-3 text-sm font-bold uppercase tracking-widest text-white shadow-lg">
+    Explore Collection
+  </button>
+</div>
   </div>
 
   {/* Custom CSS */}

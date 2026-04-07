@@ -80,78 +80,38 @@ export default function Circular() {
         <div className="absolute inset-0 bg-white/75"></div>
       </div>
 
-      {/* Main Content */}
-      <main className="relative pt-10 pb-20 px-4 md:px-8 max-w-5xl mx-auto">
-        {/* Page Title */}
-        <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl md:text-5xl font-light tracking-[5px] uppercase text-[#8b5a2b] mb-4">
-            Circulars
-          </h1>
-          <p className="text-lg md:text-xl text-gray-700 tracking-wide">
-            Official Notices & Updates from HC Parekh & Associates – Parekh Silk
-          </p>
-          <div className="w-24 h-1 bg-[#d6bfa9] mx-auto mt-6 rounded-full"></div>
-        </div>
+{/* Main Content */}
+<main className="relative pt-10 pb-20 px-4 md:px-8 max-w-5xl mx-auto">
 
-        {/* Circulars List */}
-        <div className="space-y-6 md:space-y-8">
-          {circulars.map((circular) => (
-            <div
-              key={circular.id}
-              className="bg-white/80 backdrop-blur-sm rounded-xl shadow-md border border-[#f0e9e0]/60 overflow-hidden hover:shadow-xl transition-all duration-300"
-            >
-              <div className="bg-[#8b5a2b]/10 px-6 py-4 border-b border-[#e9dede]">
-                <h3 className="text-xl md:text-2xl font-medium text-[#8b5a2b]">
-                  {circular.title}
-                </h3>
-                <p className="text-sm text-gray-600 mt-1">{circular.date}</p>
-              </div>
+  {/* Page Title (Same) */}
+  <div className="text-center mb-12 md:mb-16">
+    <h1 className="text-4xl md:text-5xl font-light tracking-[5px] uppercase text-[#8b5a2b] mb-4">
+      Circulars
+    </h1>
+    <p className="text-lg md:text-xl text-gray-700 tracking-wide">
+      Official Notices & Updates from HC Parekh & Associates – Parekh Silk
+    </p>
+    <div className="w-24 h-1 bg-[#d6bfa9] mx-auto mt-6 rounded-full"></div>
+  </div>
 
-              <div className="p-6 md:p-8">
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  {circular.description}
-                </p>
+  {/* Empty State */}
+  <div className="flex flex-col items-center justify-center text-center py-24 bg-[#FAF9F6] border border-[#f0e9e0]/60 rounded-xl shadow-sm">
 
-                <a
-                  href={circular.pdfLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center bg-[#8b5a2b] text-white px-6 py-3 rounded-md font-medium hover:bg-[#a16a3a] transition"
-                >
-                  Download PDF
-                  <span className="ml-2">↓</span>
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
+    <h2 className="text-2xl md:text-3xl font-semibold text-[#8b5a2b] mb-4">
+      At present, No circular
+    </h2>
 
-        {/* No Circulars Fallback or Note */}
-        {circulars.length === 0 && (
-          <div className="text-center py-16 text-gray-600">
-            <p className="text-xl">No circulars available at the moment.</p>
-            <p className="mt-2">Please check back soon for latest updates.</p>
-          </div>
-        )}
+    <p className="text-gray-600 text-lg max-w-md">
+      There are currently no circulars available. 
+      Please check back later for official updates and notices.
+    </p>
 
-        {/* Contact for More Info */}
-        <div className="text-center mt-16 text-gray-600">
-          <p className="text-lg">
-            For any queries regarding these circulars, feel free to reach out.
-          </p>
-          <a
-            href="mailto:hemant.parekh2012@gmail.com"
-            className="text-[#8b5a2b] hover:underline mt-2 inline-block"
-          >
-            hemant.parekh2012@gmail.com
-          </a>
-        </div>
-      </main>
+  </div>
 
-      {/* Footer Accent */}
-      <footer className="relative py-8 text-center text-sm text-gray-500 border-t border-[#e9dede]/50 bg-white/40 backdrop-blur-sm">
-        © {new Date().getFullYear()} HC Parekh & Associates – Parekh Silk | The Fabric Store
-      </footer>
+
+
+</main>
+
     </div>
   );
 }
