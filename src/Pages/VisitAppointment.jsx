@@ -1,255 +1,167 @@
-// VisitAppointment.jsx
 import React, { useState } from "react";
-
+import { Send, CheckCircle, Mail, MapPin } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function VisitAppointment() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    date: "",
-    time: "",
-    purpose: "",
-    message: "",
-  });
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [loading, setLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const onSubmit = async (data) => {
+    setLoading(true);
+    setErrorMsg('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Yahan aap backend API call ya email service (e.g., EmailJS) laga sakte ho
-    alert("Appointment request submitted! We will contact you soon.");
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      date: "",
-      time: "",
-      purpose: "",
-      message: "",
-    });
+    const formData = new FormData();
+    formData.append("siteId", "ParekhSilk07");
+    formData.append("visitorName", data.visitorName);
+    formData.append("businessName", data.businessName);
+    formData.append("visitorAddress", data.visitorAddress);
+    formData.append("mobileNo", data.mobileNo);
+    formData.append("email", data.email);
+    formData.append("proofType", data.proofType);
+    formData.append("reasonForVisit", data.reasonForVisit);
+
+    if (data.proofFile && data.proofFile.length > 0) {
+      formData.append("proofFile", data.proofFile[0]);
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/appointment", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        setErrorMsg(result.message || 'Failed to submit appointment request.');
+      }
+    } catch (error) {
+      console.error("Submission Error:", error);
+      setErrorMsg('Server error. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen font-sans text-gray-800 relative">
-      {/* Header */}
-  
+    <div className="min-h-screen bg-[#FCFBF7] py-32 px-6 font-sans">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-16">
+          <span className="text-[11px] font-black uppercase tracking-[0.5em] text-[#8B5E3C] block mb-4">Silk Corporate Office</span>
+          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-slate-900 leading-none">Visit with <br/><span className="text-slate-400">Appointment.</span></h1>
+        </div>
 
-      {/* White Silk Texture Background – Layered for Luxurious Feel */}
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        {/* Main satin silk layer with shine */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-70"
-          style={{
-            backgroundImage:
-              "url('https://thumbs.dreamstime.com/b/luxurious-creamy-white-silk-fabric-soft-folds-waves-close-up-smooth-elegant-off-satin-gentle-flowing-drapes-395648821.jpg')",
-            backgroundBlendMode: "soft-light",
-          }}
-        ></div>
+        <div className="bg-white p-8 md:p-14 shadow-2xl border-t-8 border-[#8B5E3C] rounded-sm">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-slate-100 pb-8 gap-6">
+            <h2 className="text-2xl font-black uppercase tracking-tighter text-slate-900 leading-none">Book Appointment</h2>
+            <div className="flex items-center gap-3">
+              <Mail size={16} className="text-[#8B5E3C]" />
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest lowercase">appointment@parekhsilk.com</span>
+            </div>
+          </div>
 
-        {/* Additional draped silk overlay */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-50"
-          style={{
-            backgroundImage:
-              "url('https://thumbs.dreamstime.com/b/close-up-full-frame-shot-elegant-luxurious-silk-satin-fabric-soft-creamy-off-white-ivory-hue-textile-420059815.jpg')",
-            backgroundBlendMode: "overlay",
-          }}
-        ></div>
+          <AnimatePresence mode="wait">
+            {isSubmitted ? (
+               <motion.div
+               initial={{ opacity: 0, scale: 0.95 }}
+               animate={{ opacity: 1, scale: 1 }}
+               className="flex flex-col items-center justify-center py-16 text-center"
+             >
+               <div className="w-24 h-24 bg-[#FCFBF7] rounded-full flex items-center justify-center mb-8 border border-[#8B5E3C]/20 shadow-inner">
+                 <CheckCircle size={48} className="text-[#8B5E3C]" />
+               </div>
+               <h3 className="text-4xl font-black uppercase tracking-tighter text-slate-900 mb-6 leading-none">Request Sent Successfully</h3>
+               <p className="text-slate-500 max-w-sm mx-auto text-[11px] font-bold uppercase tracking-widest leading-relaxed">
+                 Our team will evaluate your visit request and send a confirmation to your registered email shortly.
+               </p>
+             </motion.div>
+            ) : (
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-10" encType="multipart/form-data">
+              {errorMsg && (
+                <div className="p-4 bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-widest border-l-4 border-red-500">
+                  {errorMsg}
+                </div>
+              )}
 
-        {/* Soft wave/crinkle silk layer */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-40"
-          style={{
-            backgroundImage:
-              "url('https://thumbs.dreamstime.com/b/white-silk-fabric-background-soft-smooth-texture-flowing-waves-light-shadow-331831717.jpg')",
-            backgroundPosition: "center top",
-          }}
-        ></div>
+              <div className="grid md:grid-cols-2 gap-12">
+                <div className="relative border-b-2 border-slate-100 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block leading-none">Name of the Visitor *</label>
+                  <input type="text" {...register("visitorName", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-black uppercase tracking-widest" placeholder="Your Full Name" />
+                  {errors.visitorName && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
+                <div className="relative border-b-2 border-slate-100 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block leading-none">Name of the Business *</label>
+                  <input type="text" {...register("businessName", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-black uppercase tracking-widest" placeholder="Company Name" />
+                  {errors.businessName && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
+              </div>
 
-        {/* Bright white tint for readability */}
-        <div className="absolute inset-0 bg-white/75"></div>
+              <div className="relative border-b-2 border-slate-100 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block leading-none">Visitor Address with Pin code *</label>
+                <input type="text" {...register("visitorAddress", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-black uppercase tracking-widest" placeholder="Complete Address including pincode" />
+                {errors.visitorAddress && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-12">
+                <div className="relative border-b-2 border-slate-100 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block leading-none">Mobile No. *</label>
+                  <input type="tel" {...register("mobileNo", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-black uppercase tracking-widest" placeholder="+91" />
+                  {errors.mobileNo && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
+                <div className="relative border-b-2 border-slate-100 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block leading-none">Email Id *</label>
+                  <input type="email" {...register("email", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-black uppercase tracking-widest" placeholder="your@email.com" />
+                  {errors.email && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-12">
+                <div className="relative border-b-2 border-slate-100 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block leading-none">Option (Roll-down mode) *</label>
+                  <select {...register("proofType", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-black uppercase tracking-widest appearance-none cursor-pointer">
+                    <option value="">Select ID Proof</option>
+                    <option value="Aadhaar Card">Aadhaar Card</option>
+                    <option value="ECI Card">ECI Card</option>
+                    <option value="DL">DL</option>
+                  </select>
+                  {errors.proofType && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
+                <div className="relative pb-2 flex flex-col justify-end">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 leading-none">Upload Residential / Business Proof</label>
+                  <input type="file" {...register("proofFile")} className="w-full text-[10px] font-black uppercase text-slate-400 file:mr-4 file:py-2 file:px-6 file:rounded-md file:border-0 file:text-[9px] file:uppercase file:font-black file:tracking-widest file:bg-slate-900 file:text-white hover:file:bg-[#8B5E3C] cursor-pointer transition-all border border-slate-100 p-2" />
+                </div>
+              </div>
+
+              <div className="relative border-b-2 border-slate-100 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block leading-none">Describe the reason for Visit *</label>
+                <textarea rows="3" {...register("reasonForVisit", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-black uppercase tracking-widest resize-none" placeholder="Provide details here..."></textarea>
+                {errors.reasonForVisit && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+              </div>
+
+              <div className="pt-8 flex flex-col gap-6">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-slate-900 text-white py-6 rounded-md font-black uppercase text-[12px] tracking-[0.5em] hover:bg-[#8B5E3C] transition-all disabled:opacity-70 shadow-2xl"
+                >
+                  {loading ? "Requesting..." : "Submit"}
+                </button>
+                <div className="text-center">
+                  <a href="mailto:appointment@parekhsilk.com" className="text-[10px] font-black text-[#B8860B] uppercase tracking-[0.3em] hover:text-[#8B5E3C] transition-colors pb-2 border-b-2 border-[#B8860B]/10">
+                  appointment@parekhsilk.com
+                  </a>
+                </div>
+              </div>
+            </form>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
-
-      {/* Main Content */}
-      <main className="relative pt-10 pb-20 px-4 md:px-8 max-w-4xl mx-auto">
-        {/* Page Title */}
-        <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl md:text-5xl font-light tracking-[5px] uppercase text-[#8b5a2b] mb-4">
-            Visit Appointment
-          </h1>
-          <p className="text-lg md:text-xl text-gray-700 tracking-wide max-w-3xl mx-auto">
-            Schedule a personal visit to our showroom and experience the elegance of pure silk fabrics firsthand.
-          </p>
-          <div className="w-24 h-1 bg-[#d6bfa9] mx-auto mt-6 rounded-full"></div>
-        </div>
-
-        {/* Form Card */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-[#f0e9e0]/60 overflow-hidden p-6 md:p-10">
-          <h2 className="text-2xl md:text-3xl font-medium text-[#8b5a2b] mb-8 text-center">
-            Book Your Visit
-          </h2>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-
-  {/* Visitor Name */}
-  <div>
-    <label className="block text-gray-700 font-medium mb-2">
-      Name of the Visitor *
-    </label>
-    <input
-      type="text"
-      name="visitorName"
-      value={formData.visitorName}
-      onChange={handleChange}
-      required
-      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
-      placeholder="Enter full name"
-    />
-  </div>
-
-  {/* Business Name */}
-  <div>
-    <label className="block text-gray-700 font-medium mb-2">
-      Name of the Business *
-    </label>
-    <input
-      type="text"
-      name="businessName"
-      value={formData.businessName}
-      onChange={handleChange}
-      required
-      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
-      placeholder="Business / Company name"
-    />
-  </div>
-
-  {/* Address */}
-  <div>
-    <label className="block text-gray-700 font-medium mb-2">
-      Visitor Address with Pin Code *
-    </label>
-    <textarea
-      name="address"
-      value={formData.address}
-      onChange={handleChange}
-      required
-      rows={3}
-      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
-      placeholder="Full address with PIN code"
-    ></textarea>
-  </div>
-
-  {/* Mobile + Email */}
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div>
-      <label className="block text-gray-700 font-medium mb-2">
-        Mobile No. *
-      </label>
-      <input
-        type="tel"
-        name="mobile"
-        value={formData.mobile}
-        onChange={handleChange}
-        required
-        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
-        placeholder="+91 XXXXX XXXXX"
-      />
-    </div>
-
-    <div>
-      <label className="block text-gray-700 font-medium mb-2">
-        Email Id *
-      </label>
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
-        placeholder="your@email.com"
-      />
-    </div>
-  </div>
-
-  {/* ID Proof Upload */}
-  <div>
-    <label className="block text-gray-700 font-medium mb-2">
-      Upload Residential / Business Proof *
-    </label>
-    <input
-      type="file"
-      name="proof"
-      onChange={handleChange}
-      required
-      className="w-full px-4 py-3 border border-gray-300 rounded-md bg-white"
-    />
-  </div>
-
-  {/* ID Type Dropdown */}
-  <div>
-    <label className="block text-gray-700 font-medium mb-2">
-      Select Proof Type *
-    </label>
-    <select
-      name="proofType"
-      value={formData.proofType}
-      onChange={handleChange}
-      required
-      className="w-full px-4 py-3 border border-gray-300 rounded-md bg-white focus:ring-2 focus:ring-[#d6bfa9]"
-    >
-      <option value="">Select option</option>
-      <option value="Aadhaar Card">Aadhaar Card</option>
-      <option value="ECI Card">ECI Card</option>
-      <option value="Driving License">DL</option>
-    </select>
-  </div>
-
-  {/* Reason */}
-  <div>
-    <label className="block text-gray-700 font-medium mb-2">
-      Describe the Reason for Visit *
-    </label>
-    <textarea
-      name="reason"
-      value={formData.reason}
-      onChange={handleChange}
-      required
-      rows={4}
-      className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#d6bfa9]"
-      placeholder="Explain purpose of your visit..."
-    ></textarea>
-  </div>
-
-  {/* Submit */}
-  <div className="text-center">
-    <button
-      type="submit"
-      className="bg-[#8b5a2b] text-white px-10 py-4 rounded-md font-medium hover:bg-[#a16a3a] transition"
-    >
-      Submit Appointment Request
-    </button>
-  </div>
-
-</form>
-        </div>
-
-        {/* Additional Info */}
-        <div className="text-center mt-12 text-gray-700">
-          <p className="text-lg mb-4">
-            Showroom Address: HC Parekh & Associates, Parekh Silk – The Fabric Store
-          </p>
-          <p className="text-sm">
-            Contact: 6353778329 | Email: hemant.parekh2012@gmail.com
-          </p>
-        </div>
-      </main>
-
-     
     </div>
   );
 }

@@ -1,149 +1,149 @@
-import React from "react";
-import { Send, Gavel, Calendar, Clock, Landmark, ShieldCheck } from "lucide-react";
+import React, { useState } from "react";
+import { Send, CheckCircle, Hammer } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function EAuctionForm() {
-  return (
-    <div className="min-h-screen bg-[#FAF9F6] py-10 px-4 font-sans text-gray-900 relative">
-      {/* Silk Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='even-odd'%3E%3Cg fill='%23B8860B' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')" }}></div>
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [loading, setLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-      <div className="max-w-4xl mx-auto bg-white border border-[#EADBC8] shadow-lg rounded-2xl overflow-hidden relative z-10">
-        
-        {/* Header - Silk Bronze */}
-        <div className="bg-[#8B5E3C] p-8 text-white">
-          <div className="flex items-center gap-3 mb-2">
-            <Gavel size={28} />
-            <h1 className="text-3xl font-bold tracking-tight">e-AUCTION REGISTRATION</h1>
-          </div>
-          <p className="text-sm text-[#F3E5D8] font-medium">Parekh Textile Chambers - Inventory & Asset Auction Portal</p>
+  const onSubmit = async (data) => {
+    setLoading(true);
+    setErrorMsg('');
+
+    const formData = new FormData();
+    formData.append("siteId", "ParekhSilk07");
+    formData.append("participantName", data.participantName);
+    formData.append("legalBusinessName", data.legalBusinessName);
+    formData.append("businessAddress", data.businessAddress);
+    formData.append("gstNo", data.gstNo || "");
+    formData.append("mobileNo", data.mobileNo);
+    formData.append("email", data.email);
+
+    if (data.gstCertificate && data.gstCertificate.length > 0) {
+      formData.append("gstCertificate", data.gstCertificate[0]);
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auction", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        setErrorMsg(result.message || 'Failed to submit participation request.');
+      }
+    } catch (error) {
+      console.error("Submission Error:", error);
+      setErrorMsg('Server error. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 py-28 px-6 font-sans">
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-12 text-center md:text-left">
+          <span className="text-[11px] font-black uppercase tracking-[0.4em] text-[#8B5E3C] block mb-2">Liquidation Portal</span>
+          <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-slate-900">e-Auction <span className="text-slate-400">Portal.</span></h1>
+          <p className="text-slate-500 font-bold tracking-widest text-[10px] uppercase mt-4">( At presently, No e-Auction published )</p>
         </div>
 
-      <form className="p-8 space-y-10">
+        <div className="bg-white border border-slate-200 overflow-hidden shadow-2xl rounded-sm p-10 md:p-14">
+           <div className="flex justify-between items-start mb-10 border-b border-slate-100 pb-6">
+              <h3 className="text-2xl font-black uppercase tracking-tighter text-slate-900 leading-none">Participation <span className="text-[#8B5E3C] block text-[10px] mt-2 tracking-widest">REQUEST (e-FORM)</span></h3>
+           </div>
 
-  {/* Section 1: Participant Details (Updated) */}
-  <div className="space-y-6">
-    <h2 className="text-xl font-bold border-b-2 border-[#F3E5D8] pb-2 text-[#8B5E3C]">
-      Participant Information
-    </h2>
+          <AnimatePresence mode="wait">
+            {isSubmitted ? (
+               <motion.div
+               initial={{ opacity: 0, scale: 0.95 }}
+               animate={{ opacity: 1, scale: 1 }}
+               className="flex flex-col items-center justify-center py-12 text-center"
+             >
+               <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mb-6">
+                 <CheckCircle size={40} className="text-green-600" />
+               </div>
+               <h3 className="text-3xl font-black uppercase tracking-tighter text-slate-900 mb-4">Registration Success</h3>
+               <p className="text-slate-500 max-w-sm mx-auto text-sm leading-relaxed font-medium uppercase tracking-tight">
+                 You have been successfully registered for upcoming silk e-auctions. Notifications will be sent to your registered email.
+               </p>
+             </motion.div>
+            ) : (
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" encType="multipart/form-data">
+              {errorMsg && (
+                <div className="p-4 bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-widest border-l-4 border-red-500">
+                  {errorMsg}
+                </div>
+              )}
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-2 gap-10">
+                <div className="relative border-b border-slate-200 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Name of the Participant *</label>
+                  <input type="text" {...register("participantName", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-bold uppercase tracking-widest" placeholder="Your Name" />
+                  {errors.participantName && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
+                <div className="relative border-b border-slate-200 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Legal Name of the Business *</label>
+                  <input type="text" {...register("legalBusinessName", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-bold uppercase tracking-widest" placeholder="Company Name" />
+                  {errors.legalBusinessName && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
+              </div>
 
-      {/* Name */}
-      <div className="space-y-4">
-        <label className="block text-lg font-semibold text-gray-800">
-          Name of the Participant
-        </label>
-        <input 
-          type="text" 
-          placeholder="Enter Name"
-          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-        />
+              <div className="relative border-b border-slate-200 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Business Address with Pin code *</label>
+                <input type="text" {...register("businessAddress", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-bold uppercase tracking-widest" placeholder="Complete Address" />
+                {errors.businessAddress && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-10">
+                <div className="relative border-b border-slate-200 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">GST No.</label>
+                  <input type="text" {...register("gstNo")} className="w-full bg-transparent outline-none py-2 text-xs font-bold uppercase tracking-widest" placeholder="Optional" />
+                </div>
+                <div className="relative border-b border-slate-200 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Mobile No. *</label>
+                  <input type="tel" {...register("mobileNo", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-bold uppercase tracking-widest" placeholder="+91" />
+                  {errors.mobileNo && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
+                <div className="relative border-b border-slate-200 pb-2 focus-within:border-[#8B5E3C] transition-all">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email id *</label>
+                  <input type="email" {...register("email", { required: true })} className="w-full bg-transparent outline-none py-2 text-xs font-bold uppercase tracking-widest" placeholder="email@address" />
+                  {errors.email && <span className="absolute right-0 bottom-2 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
+              </div>
+
+              <div className="relative pb-2 focus-within:border-[#8B5E3C] transition-all flex flex-col justify-end">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 leading-none">Upload GST Certificate</label>
+                <input type="file" {...register("gstCertificate")} className="w-full text-[10px] font-black uppercase text-slate-500 file:mr-4 file:py-2 file:px-6 file:rounded-md file:border-0 file:text-[10px] file:uppercase file:font-black file:tracking-widest file:bg-slate-900 file:text-white hover:file:bg-[#8B5E3C] cursor-pointer transition-all border border-slate-100 p-2" />
+              </div>
+
+              <div className="pt-6">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-slate-900 text-white py-5 font-black uppercase text-[11px] tracking-[0.4em] hover:bg-[#8B5E3C] transition-all flex items-center justify-center gap-4 disabled:opacity-70 shadow-2xl"
+                >
+                  {loading ? "Registering..." : "Submit"} <Hammer size={16} />
+                </button>
+                <div className="mt-8 text-center border-t border-slate-50 pt-8">
+                  <a href="mailto:services@parekhsilk.com" className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] hover:text-[#8B5E3C] transition-colors pb-1 border-b border-blue-50">
+                  services@parekhsilk.com
+                  </a>
+                </div>
+              </div>
+            </form>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
-
-      {/* Business Name */}
-      <div className="space-y-4">
-        <label className="block text-lg font-semibold text-gray-800">
-          Legal Name of the Business
-        </label>
-        <input 
-          type="text" 
-          placeholder="Enter Business Name"
-          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-        />
-      </div>
-
-      {/* Address */}
-      <div className="md:col-span-2 space-y-4">
-        <label className="block text-lg font-semibold text-gray-800">
-          Business Address with Pin Code
-        </label>
-        <textarea 
-          rows="2"
-          placeholder="Enter Full Address"
-          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-        />
-      </div>
-
-      {/* GST */}
-      <div className="space-y-4">
-        <label className="block text-lg font-semibold text-gray-800">
-          GST No.
-        </label>
-        <input 
-          type="text" 
-          placeholder="Enter GST Number"
-          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-        />
-      </div>
-
-      {/* Mobile */}
-      <div className="space-y-4">
-        <label className="block text-lg font-semibold text-gray-800">
-          Mobile No.
-        </label>
-        <input 
-          type="tel" 
-          placeholder="+91 00000 00000"
-          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-        />
-      </div>
-
-      {/* Email */}
-      <div className="md:col-span-2 space-y-4">
-        <label className="block text-lg font-semibold text-gray-800">
-          Email Id
-        </label>
-        <input 
-          type="email" 
-          placeholder="example@email.com"
-          className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-        />
-      </div>
-
-      {/* Upload GST */}
-      <div className="md:col-span-2 space-y-2">
-        <label className="text-[15px] font-bold text-gray-700">
-          Upload GST Certificate
-        </label>
-
-        <label className="border-2 border-dashed border-[#EADBC8] rounded-xl p-6 text-center bg-[#FAF9F6] hover:bg-[#F3E5D8]/30 transition-all cursor-pointer block">
-          
-          <input 
-            type="file" 
-            accept=".pdf,.jpg,.jpeg,.png"
-            className="hidden"
-            onChange={(e) => console.log(e.target.files[0])}
-          />
-
-          <p className="text-sm text-gray-500">
-            Click to upload or drag & drop GST Certificate
-          </p>
-        </label>
-      </div>
-
-    </div>
-  </div>
-
-
-
-  {/* Buttons (UNCHANGED) */}
-  <div className="flex justify-end gap-4 pt-6 border-t border-[#F3E5D8]">
-    
-    <button type="button" className="px-8 py-3 border-2 border-[#EADBC8] rounded-full text-lg font-bold hover:bg-[#FAF9F6] transition-all text-gray-700">
-      Save Draft
-    </button>
-
-    <button type="submit" className="px-10 py-3 bg-[#B8860B] hover:bg-[#8B5E3C] text-white rounded-full text-lg font-bold transition-all flex items-center gap-2 shadow-md">
-      Publish Auction <Send size={20} />
-    </button>
-
-  </div>
-
-</form>
-      </div>
-      
-      {/* Footer Decoration */}
-      <div className="w-24 h-1 bg-[#D4AF37] mx-auto mt-10 rounded-full opacity-50"></div>
     </div>
   );
 }

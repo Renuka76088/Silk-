@@ -1,129 +1,180 @@
-import React from "react";
-import { Send, Plus, Trash2 } from "lucide-react";
+import React, { useState } from "react";
+import { Send, CheckCircle, Calculator } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function EQuotationForm() {
-  return (
-    // Naya background color aur subtle silk texture pattern
-    <div className="min-h-screen bg-[#FAF9F6] py-10 px-4 font-sans text-gray-900 relative">
-      {/* Subtle Silk Pattern Blur */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='even-odd'%3E%3Cg fill='%23B8860B' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')" }}></div>
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [loading, setLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-      <div className="max-w-4xl mx-auto bg-white border border-[#EADBC8] shadow-lg rounded-2xl overflow-hidden relative z-10">
+  const onSubmit = async (data) => {
+    setLoading(true);
+    setErrorMsg('');
+
+    try {
+      const response = await fetch("http://localhost:5000/api/quotation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          siteId: "ParekhSilk07",
+          traderName: data.traderName,
+          businessName: data.businessName,
+          businessAddress: data.businessAddress,
+          gstNo: data.gstNo || "",
+          mobileNo: data.mobileNo,
+          email: data.email,
+          quotationType: data.quotationType
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        setErrorMsg(result.message || 'Failed to request quotation. Please try again.');
+      }
+    } catch (error) {
+      console.error("Submission Error:", error);
+      setErrorMsg('Server error. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#FAF9F6] py-28 px-6 font-sans text-gray-900 relative">
+      <div className="max-w-4xl mx-auto bg-white border border-[#EADBC8] shadow-2xl rounded-2xl overflow-hidden relative z-10">
         
         {/* Header - deep bronze/gold silk color */}
-        <div className="bg-[#8B5E3C] p-8 text-white">
-          <h1 className="text-3xl font-bold tracking-tight">e-QUOTATION FORM</h1>
-          <p className="text-sm text-[#F3E5D8] mt-1 font-medium">Parekh Textile Chambers - Official Estimate</p>
+        <div className="bg-[#8B5E3C] p-10 text-white relative">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-10 -mt-10 blur-2xl"></div>
+          <h1 className="text-4xl font-black tracking-tighter uppercase leading-none">e-Quotation <span className="text-[#D4AF37] block text-sm mt-2 tracking-widest">(e-Form)</span></h1>
         </div>
 
-     <form className="p-8 space-y-10">
+        <div className="p-10">
+          <AnimatePresence mode="wait">
+            {isSubmitted ? (
+               <motion.div
+               initial={{ opacity: 0, scale: 0.95 }}
+               animate={{ opacity: 1, scale: 1 }}
+               className="flex flex-col items-center justify-center py-20 text-center"
+             >
+               <div className="w-20 h-20 bg-[#FAF9F6] rounded-full flex items-center justify-center mb-6">
+                 <CheckCircle size={40} className="text-[#8B5E3C]" />
+               </div>
+               <h3 className="text-3xl font-black uppercase tracking-tighter text-[#8B5E3C] mb-4">Quotation Sent</h3>
+               <p className="text-gray-500 max-w-sm mx-auto text-sm leading-relaxed font-medium uppercase tracking-tight">
+                 Your quotation request has been successfully generated and sent to our commercial desk. We will revert with pricing details soon.
+               </p>
+             </motion.div>
+            ) : (
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+              {errorMsg && (
+                <div className="p-4 bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-widest border-l-4 border-red-500">
+                  {errorMsg}
+                </div>
+              )}
 
-  {/* Section 1: Basic Info (Updated Fields) */}
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="space-y-4 relative">
+                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Name of the Trader *</label>
+                  <input 
+                    type="text" 
+                    {...register("traderName", { required: true })}
+                    placeholder="Full Name" 
+                    className="w-full border-b-2 border-[#EADBC8] p-3 text-xs font-bold uppercase tracking-widest focus:border-[#B8860B] outline-none bg-transparent"
+                  />
+                  {errors.traderName && <span className="absolute right-0 bottom-4 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
 
-    {/* Name of Trader */}
-    <div className="space-y-4">
-      <label className="block text-lg font-semibold text-gray-800">
-        Name of the Trader
-      </label>
-      <input 
-        type="text" 
-        placeholder="Enter Name" 
-        className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-      />
-    </div>
+                <div className="space-y-4 relative">
+                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Business Name *</label>
+                  <input 
+                    type="text" 
+                    {...register("businessName", { required: true })}
+                    placeholder="Company Title" 
+                    className="w-full border-b-2 border-[#EADBC8] p-3 text-xs font-bold uppercase tracking-widest focus:border-[#B8860B] outline-none bg-transparent"
+                  />
+                  {errors.businessName && <span className="absolute right-0 bottom-4 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
 
-    {/* Business Name */}
-    <div className="space-y-4">
-      <label className="block text-lg font-semibold text-gray-800">
-        Business Name
-      </label>
-      <input 
-        type="text" 
-        placeholder="Enter Business Name" 
-        className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-      />
-    </div>
+                <div className="md:col-span-2 space-y-4 relative">
+                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Business Address with Pin Code *</label>
+                  <input 
+                    type="text" 
+                    {...register("businessAddress", { required: true })}
+                    placeholder="Full Address with PIN Code"
+                    className="w-full border-b-2 border-[#EADBC8] p-3 text-xs font-bold uppercase tracking-widest focus:border-[#B8860B] outline-none bg-transparent"
+                  />
+                  {errors.businessAddress && <span className="absolute right-0 bottom-4 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
 
-    {/* Address */}
-    <div className="md:col-span-2 space-y-4">
-      <label className="block text-lg font-semibold text-gray-800">
-        Business Address with Pin Code
-      </label>
-      <textarea 
-        rows="2"
-        placeholder="Full Address with PIN Code"
-        className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-      />
-    </div>
+                <div className="space-y-4 relative">
+                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">GST No.</label>
+                  <input 
+                    type="text" 
+                    {...register("gstNo")}
+                    placeholder="Optional" 
+                    className="w-full border-b-2 border-[#EADBC8] p-3 text-xs font-bold uppercase tracking-widest focus:border-[#B8860B] outline-none bg-transparent"
+                  />
+                </div>
 
-    {/* GST */}
-    <div className="space-y-4">
-      <label className="block text-lg font-semibold text-gray-800">
-        GST No.
-      </label>
-      <input 
-        type="text" 
-        placeholder="Enter GST Number" 
-        className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-      />
-    </div>
+                <div className="space-y-4 relative">
+                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Mobile No. *</label>
+                  <input 
+                    type="tel" 
+                    {...register("mobileNo", { required: true })}
+                    placeholder="+91" 
+                    className="w-full border-b-2 border-[#EADBC8] p-3 text-xs font-bold uppercase tracking-widest focus:border-[#B8860B] outline-none bg-transparent"
+                  />
+                  {errors.mobileNo && <span className="absolute right-0 bottom-4 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
 
-    {/* Mobile */}
-    <div className="space-y-4">
-      <label className="block text-lg font-semibold text-gray-800">
-        Mobile No.
-      </label>
-      <input 
-        type="tel" 
-        placeholder="+91 00000 00000" 
-        className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-      />
-    </div>
+                <div className="md:col-span-2 space-y-4 relative">
+                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Email id *</label>
+                  <input 
+                    type="email" 
+                    {...register("email", { required: true })}
+                    placeholder="commercial@email.com" 
+                    className="w-full border-b-2 border-[#EADBC8] p-3 text-xs font-bold uppercase tracking-widest focus:border-[#B8860B] outline-none bg-transparent"
+                  />
+                  {errors.email && <span className="absolute right-0 bottom-4 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
 
-    {/* Email */}
-    <div className="md:col-span-2 space-y-4">
-      <label className="block text-lg font-semibold text-gray-800">
-        Email ID
-      </label>
-      <input 
-        type="email" 
-        placeholder="example@email.com" 
-        className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]"
-      />
-    </div>
+                <div className="md:col-span-2 space-y-4 relative">
+                  <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Options (Roll-down mode) *</label>
+                  <select {...register("quotationType", { required: true })} className="w-full border-b-2 border-[#EADBC8] p-3 text-xs font-bold uppercase tracking-widest focus:border-[#B8860B] outline-none bg-transparent appearance-none cursor-pointer">
+                    <option value="">Select Option</option>
+                    <option value="Quotation for Finished Silk Products">Quotation for Finished Silk Products</option>
+                    <option value="Quotation for Raw Silk Products">Quotation for Raw Silk Products</option>
+                    <option value="Particulars of the Products">Particulars of the Products</option>
+                  </select>
+                  {errors.quotationType && <span className="absolute right-0 bottom-4 text-[8px] text-red-500 font-bold uppercase">Required</span>}
+                </div>
+              </div>
 
-    {/* Options Dropdown */}
-    <div className="md:col-span-2 space-y-4">
-      <label className="block text-lg font-semibold text-gray-800">
-        Options
-      </label>
-      <select className="w-full border-2 border-[#EADBC8] rounded-md p-3 text-lg focus:border-[#B8860B] outline-none bg-[#FAF9F6]">
-        <option>Select Option</option>
-        <option>Quotation for Finished Silk Products</option>
-        <option>Quotation for Raw Silk Products</option>
-        <option>Particulars of the Products</option>
-      </select>
-    </div>
-
-  </div>
-
-  
-  {/* Buttons */}
-  <div className="flex justify-end gap-4 pt-6 border-t border-[#F3E5D8]">
-    <button type="button" className="px-6 py-3 border-2 border-[#EADBC8] rounded-full text-lg font-bold hover:bg-[#FAF9F6] transition-all text-gray-700">
-      Print / Save PDF
-    </button>
-
-    <button type="submit" className="px-10 py-3 bg-[#B8860B] hover:bg-[#8B5E3C] text-white rounded-full text-lg font-bold transition-all flex items-center gap-2 shadow-md hover:shadow-lg">
-      Submit Quotation <Send size={20} />
-    </button>
-  </div>
-
-</form>
+              <div className="flex flex-col gap-6 pt-10 border-t border-[#F3E5D8]">
+                <button 
+                  type="submit" 
+                  disabled={loading}
+                  className="w-full py-5 bg-[#8B5E3C] hover:bg-[#1A1A1A] text-white rounded-md text-[11px] font-black transition-all flex items-center justify-center gap-4 shadow-xl uppercase tracking-[0.4em] disabled:opacity-50"
+                >
+                  {loading ? "Generating Quote..." : "Submit"} <Calculator size={14} />
+                </button>
+                <div className="text-center">
+                  <a href="mailto:trade-enquiry@parekhsilk.com" className="text-[10px] font-black text-[#B8860B] uppercase tracking-[0.3em] hover:text-[#8B5E3C] transition-colors pb-2 border-b-2 border-[#B8860B]/10">
+                    trade-enquiry@parekhsilk.com
+                  </a>
+                </div>
+              </div>
+            </form>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
-      {/* Small subtle gold footer line */}
-      <div className="w-16 h-1 bg-[#D4AF37] mx-auto mt-10 rounded-full"></div>
     </div>
   );
 }

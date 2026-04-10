@@ -62,6 +62,8 @@ const [loading, setLoading] = useState(true);
       <Route path='/page/customer-review' element={<CustomerReviews/>}/>
       <Route path='/appointment' element={<VisitAppointment/>}/>
       <Route path='/media' element={<MediaGallery/>}/>
+      <Route path='/product-gallery' element={<MediaGallery/>}/>
+      <Route path='/product' element={<SilkPage/>}/>
       <Route path='/associates' element={<TextileAssociates/>}/>
     </Routes>
      <Footer/>
