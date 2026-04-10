@@ -1,6 +1,6 @@
 import React from "react";
 // Video import sahi hai
-import vedio from "../Assets/Vedio.mp4";
+import vedio from "../assets/Vedio.mp4";
 
 export default function Associates() {
   return (
