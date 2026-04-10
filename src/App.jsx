@@ -33,7 +33,7 @@ const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // 3.5 seconds ke baad loader gayab ho jayega
-    const timer = setTimeout(() => setLoading(false), 3500);
+    const timer = setTimeout(() => setLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
