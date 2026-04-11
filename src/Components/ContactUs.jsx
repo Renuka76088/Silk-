@@ -28,7 +28,7 @@ export default function ContactUs() {
 
         {/* Right Section: Contact Details */}
         <div className="md:w-1/2 flex flex-col justify-center space-y-8 bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-[#f0ece8]">
-          
+
           {/* Contact Number */}
           <div className="flex items-start gap-5">
             <div className="p-3 bg-[#fdfaf7] rounded-full">
@@ -74,7 +74,7 @@ export default function ContactUs() {
             <div>
               <h4 className="text-xs uppercase tracking-widest text-gray-400 font-bold mb-1">Location</h4>
               <p className="text-lg font-semibold text-gray-800 tracking-wide">
-                SURAT • GJ, INDIA
+                SURAT, GJ, INDIA
               </p>
             </div>
           </div>

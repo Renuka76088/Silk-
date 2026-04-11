@@ -51,12 +51,12 @@ export default function TradeEnquiryForm() {
   return (
     <div className="min-h-screen bg-[#FCFBF7] py-28 px-6 font-sans selection:bg-[#B8860B]/20">
       <div className="max-w-4xl mx-auto bg-white shadow-[0_20px_50px_rgba(0,0,0,0.06)] rounded-[2rem] overflow-hidden border border-[#EADBC8]">
-        
+
         {/* Form Header */}
         <div className="p-10 bg-[#8B5E3C] text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
           <h2 className="text-4xl mb-2 font-black uppercase tracking-tighter">Trade <span className="text-[#F3E5D8]">Enquiry</span></h2>
-          <p className="text-[#F3E5D8]/80 text-sm font-bold uppercase tracking-widest leading-none">Membership Application (e-Form)</p>
+          <p className="text-[#F3E5D8]/80 text-sm font-bold uppercase tracking-widest leading-none">Membership Application </p>
         </div>
 
         <div className="p-10">
@@ -91,72 +91,72 @@ export default function TradeEnquiryForm() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     <div className="space-y-2 relative">
                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Name of the Trader *</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         {...register("traderName", { required: true })}
-                        placeholder="Full Name" 
-                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200" 
+                        placeholder="Full Name"
+                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200"
                       />
                       {errors.traderName && <span className="absolute right-0 bottom-3 text-[8px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
                     </div>
 
                     <div className="space-y-2 relative">
                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Business Name *</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         {...register("businessName", { required: true })}
-                        placeholder="Company Title" 
-                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200" 
+                        placeholder="Company Title"
+                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200"
                       />
                       {errors.businessName && <span className="absolute right-0 bottom-3 text-[8px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
                     </div>
 
                     <div className="md:col-span-2 space-y-2 relative">
                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Business Address with Pin code *</label>
-                      <input 
+                      <input
                         type="text"
                         {...register("businessAddress", { required: true })}
-                        placeholder="Complete industrial address with PIN" 
-                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200" 
+                        placeholder="Complete industrial address with PIN"
+                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200"
                       />
                       {errors.businessAddress && <span className="absolute right-0 bottom-3 text-[8px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
                     </div>
 
                     <div className="space-y-2 relative">
                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">GST No.</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         {...register("gstNo")}
-                        placeholder="Optional" 
-                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200" 
+                        placeholder="Optional"
+                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200"
                       />
                     </div>
 
                     <div className="space-y-2 relative">
                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Mobile No. *</label>
-                      <input 
-                        type="tel" 
+                      <input
+                        type="tel"
                         {...register("mobileNo", { required: true })}
-                        placeholder="+91" 
-                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200" 
+                        placeholder="+91"
+                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200"
                       />
                       {errors.mobileNo && <span className="absolute right-0 bottom-3 text-[8px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
                     </div>
 
                     <div className="md:col-span-2 space-y-2 relative">
                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Email id *</label>
-                      <input 
-                        type="email" 
+                      <input
+                        type="email"
                         {...register("email", { required: true })}
-                        placeholder="commercial@email.com" 
-                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200" 
+                        placeholder="commercial@email.com"
+                        className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest placeholder:text-gray-200"
                       />
                       {errors.email && <span className="absolute right-0 bottom-3 text-[8px] text-red-500 font-bold uppercase tracking-widest">Required</span>}
                     </div>
 
                     <div className="md:col-span-2 space-y-2 relative">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Options (Roll-down mode) *</label>
-                      <select 
+                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Options</label>
+                      <select
                         {...register("enquiryType", { required: true })}
                         className="w-full bg-[#FAF9F6] border-b-2 border-[#EADBC8] px-0 py-3 outline-none focus:border-[#B8860B] transition-all text-xs font-bold uppercase tracking-widest appearance-none cursor-pointer"
                       >
@@ -172,18 +172,18 @@ export default function TradeEnquiryForm() {
                     <div className="md:col-span-2 space-y-4 pt-4">
                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Upload GST Certificate</label>
                       <div className="relative group">
-                        <input 
-                          type="file" 
+                        <input
+                          type="file"
                           {...register("gstCertificate")}
                           accept=".pdf,.jpg,.jpeg,.png"
-                          className="w-full text-[9px] font-black uppercase tracking-[0.2em] text-gray-400 file:mr-6 file:py-3 file:px-8 file:rounded-md file:border-0 file:text-[10px] file:uppercase file:font-black file:tracking-[0.2em] file:bg-[#8B5E3C] file:text-[#F3E5D8] group-hover:file:bg-[#1A1A1A] transition-all cursor-pointer" 
+                          className="w-full text-[9px] font-black uppercase tracking-[0.2em] text-gray-400 file:mr-6 file:py-3 file:px-8 file:rounded-md file:border-0 file:text-[10px] file:uppercase file:font-black file:tracking-[0.2em] file:bg-[#8B5E3C] file:text-[#F3E5D8] group-hover:file:bg-[#1A1A1A] transition-all cursor-pointer"
                         />
                       </div>
                     </div>
 
                     <div className="md:col-span-2 pt-10 border-t border-[#FAF9F6]">
-                      <button 
-                        type="submit" 
+                      <button
+                        type="submit"
                         disabled={loading}
                         className="w-full bg-[#8B5E3C] hover:bg-[#1A1A1A] text-white py-5 rounded-md text-[11px] font-black shadow-2xl transition-all uppercase tracking-[0.4em] flex items-center justify-center gap-4 disabled:opacity-50"
                       >
