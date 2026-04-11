@@ -66,10 +66,10 @@ export default function SilkPage() {
         <h1 className="text-2xl md:text-4xl font-black tracking-tighter text-black mb-4 uppercase leading-none">
           RAW SILK <span className="opacity-40">COLLECTION</span>
         </h1>
-        <p className="text-[12px] md:text-[13px] text-black/70 max-w-3xl mx-auto leading-relaxed font-bold uppercase tracking-widest">
-          Luxurious 100% silk fibers from Fabenzo. Premium quality for fashion projects and home decor. 
-          Contact us at <span className="text-slate-900 border-b-2 border-slate-900">+91 8217771201</span> to order.
-        </p>
+       <p className="text-[12px] md:text-[13px] text-black/70 max-w-3xl mx-auto leading-relaxed font-bold uppercase">
+  Premium quality silk fibers from Parekh Silk. Known for their rich texture, durability, and elegant finish—perfect for fashion creations and home décor projects. 
+  Experience luxury and craftsmanship in every thread. Contact us at <span className="text-slate-900 border-b-2 border-slate-900">+91 6353778329</span> to place your order.
+</p>
       </div>
 
       {/* 2. Results Counter & Search Bar */}
