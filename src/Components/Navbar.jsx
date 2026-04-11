@@ -1,7 +1,7 @@
 // Header.jsx
 import React, { useState, useEffect, useRef } from "react";
-import { FaFacebook, FaWhatsapp, FaYoutube, FaInstagram , FaRegCommentDots } from "react-icons/fa";
-import { Menu, Search, ShoppingCart, Heart, User,Send, X, LocationEdit } from "lucide-react";
+import { FaFacebook, FaWhatsapp, FaYoutube, FaInstagram, FaRegCommentDots } from "react-icons/fa";
+import { Menu, Search, ShoppingCart, Heart, User, Send, X, LocationEdit } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
@@ -31,7 +31,7 @@ export default function Navbar() {
     { name: "MEDIA GALLERY", path: "/media" },
     { name: "TEXTILE ASSOCIATES", path: "/associates" },
   ];
-  
+
   // --- Chatbot States ---
   const [chatOpen, setChatOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -61,7 +61,7 @@ export default function Navbar() {
       } else if (input.toLowerCase().includes("location") || input.toLowerCase().includes("address")) {
         aiResponse = "We are located in Surat, Gujarat, India. 🇮🇳";
       }
-      
+
       setMessages((prev) => [...prev, { role: "ai", text: aiResponse }]);
     }, 1000);
   };
@@ -98,7 +98,7 @@ export default function Navbar() {
         {/* LEFT (Desktop Logo) */}
         <div className="hidden md:flex items-center">
           <Link to="/" className="z-[130] flex items-center no-underline">
-            <div 
+            <div
               style={{
                 background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
                 boxShadow: '0 10px 30px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.5)'
@@ -109,10 +109,10 @@ export default function Navbar() {
             </div>
 
             <div className="flex flex-col justify-center">
-           <h1 className="flex items-center gap-x-1 text-xl md:text-2xl font-black tracking-tighter leading-none">
-  <span className="text-[#4A4238]">PAREKH</span>
-  <span className="text-[#C5A27D]">SILK</span>
-</h1>
+              <h1 className="flex items-center gap-x-1 text-xl md:text-2xl font-black tracking-tighter leading-none">
+                <span className="text-[#4A4238]">PAREKH</span>
+                <span className="text-[#C5A27D]">SILK</span>
+              </h1>
               <span className="text-[9px] md:text-[11px] font-bold tracking-[0.3em] text-[#8b8175] mt-1">
                 SURAT • GJ, INDIA
               </span>
@@ -123,7 +123,7 @@ export default function Navbar() {
         {/* CENTER (Mobile Logo) */}
         <div className="flex md:hidden justify-center items-center flex-1 mx-1 shrink-0 overflow-hidden">
           <Link to="/" className="z-[130] flex items-center no-underline">
-            <div 
+            <div
               style={{
                 background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
                 boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.5)'
@@ -162,9 +162,8 @@ export default function Navbar() {
           <div key={index} className="relative group">
             <Link
               to={item.path}
-              className={`hover:text-[#8b5a2b] transition-colors duration-200 whitespace-nowrap ${
-                item.dropdown ? "cursor-default" : ""
-              }`}
+              className={`hover:text-[#8b5a2b] transition-colors duration-200 whitespace-nowrap ${item.dropdown ? "cursor-default" : ""
+                }`}
             >
               {item.name}
             </Link>
@@ -187,18 +186,18 @@ export default function Navbar() {
       </div>
 
       {/* WhatsApp Button */}
-<div className="fixed bottom-6 right-6 z-[200]">
-  <a
-    href="https://wa.me/918217771201"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-green-500 hover:bg-green-600 transition-all duration-300 text-white p-4 rounded-full shadow-2xl flex items-center justify-center hover:scale-110"
-  >
-    <FaWhatsapp size={26} />
-  </a>
-</div>
+      <div className="fixed bottom-6 right-6 z-[200]">
+        <a
+          href="https://wa.me/916353778329"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-500 hover:bg-green-600 transition-all duration-300 text-white p-4 rounded-full shadow-2xl flex items-center justify-center hover:scale-110"
+        >
+          <FaWhatsapp size={26} />
+        </a>
+      </div>
 
-{/* --- AI CHATBOT IMPLEMENTATION --- */}
+      {/* --- AI CHATBOT IMPLEMENTATION --- */}
       <div className="fixed bottom-24 right-6 z-[200] flex flex-col items-end">
         {/* Chat Window */}
         {chatOpen && (
@@ -216,11 +215,10 @@ export default function Navbar() {
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
               {messages.map((msg, idx) => (
                 <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] p-3 rounded-2xl text-xs md:text-sm shadow-sm ${
-                    msg.role === 'user' 
-                    ? 'bg-[#C5A27D] text-white rounded-br-none' 
-                    : 'bg-white text-gray-800 rounded-bl-none'
-                  }`}>
+                  <div className={`max-w-[80%] p-3 rounded-2xl text-xs md:text-sm shadow-sm ${msg.role === 'user'
+                      ? 'bg-[#C5A27D] text-white rounded-br-none'
+                      : 'bg-white text-gray-800 rounded-bl-none'
+                    }`}>
                     {msg.text}
                   </div>
                 </div>
@@ -230,11 +228,11 @@ export default function Navbar() {
 
             {/* Input Area */}
             <form onSubmit={handleSendMessage} className="p-3 border-t bg-white flex gap-2">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask something..." 
+                placeholder="Ask something..."
                 className="flex-1 text-sm border border-gray-200 rounded-full px-4 py-2 focus:outline-none focus:border-[#C5A27D]"
               />
               <button type="submit" className="bg-[#C5A27D] text-white p-2 rounded-full hover:scale-110 transition shadow-md">
@@ -254,12 +252,11 @@ export default function Navbar() {
         </button>
       </div>
       {/* Mobile Menu */}
-      <div className={`fixed top-0 left-0 w-full h-full bg-gray-50 z-[300] transform transition-transform duration-300 ${
-        menuOpen ? "translate-y-0" : "-translate-y-full"
-      }`}>
+      <div className={`fixed top-0 left-0 w-full h-full bg-gray-50 z-[300] transform transition-transform duration-300 ${menuOpen ? "translate-y-0" : "-translate-y-full"
+        }`}>
         <div className="flex justify-between items-center p-5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] bg-white relative z-10">
           <Link to="/" className="flex items-center no-underline" onClick={() => setMenuOpen(false)}>
-            <div 
+            <div
               style={{
                 background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
                 boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)'
