@@ -2,72 +2,116 @@ import React from "react";
 import { motion } from "framer-motion";
 
 export default function Loader() {
+  // Stagger animation for the letters
+  const logoText = "PAREKH";
+  
   return (
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1, ease: "easeInOut" }}
-      className="fixed inset-0 bg-[#f8f3ed] flex items-center justify-center z-[9999] overflow-hidden"
+      transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96] }}
+      className="fixed inset-0 bg-[#fdfaf6] flex items-center justify-center z-[9999] overflow-hidden"
     >
-      {/* 1. SILK FABRIC BACKGROUND IMAGE */}
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-40 transition-scale duration-[5000ms] ease-out scale-110"
+      {/* 1. ANIMATED TEXTURE BACKGROUND */}
+      <motion.div
+        initial={{ scale: 1.2, opacity: 0 }}
+        animate={{ scale: 1, opacity: 0.3 }}
+        transition={{ duration: 10, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
+        className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1619043518800-7f14be467dca?w=600&auto=format&fit=crop&q=60')",
-          backgroundBlendMode: "multiply",
+          backgroundImage: "url('https://images.unsplash.com/photo-1619043518800-7f14be467dca?w=1200')",
+          filter: "sepia(20%) contrast(1.1)",
         }}
-      ></div>
+      ></motion.div>
 
-      {/* 2. OVERLAY GRADIENT (Premium Feel ke liye) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#f8f3ed]/60 via-transparent to-[#f8f3ed]/60"></div>
+      {/* 2. PREMIUM OVERLAY LAYER */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-[#fdfaf6] via-transparent to-[#fdfaf6]/80"></div>
 
-      <div className="text-center w-full px-4 relative z-10">
+      {/* 3. CENTER CONTENT CONTAINER */}
+      <div className="relative z-10 flex flex-col items-center">
         
-        {/* 3. GOLD LINE ANIMATION (Red ki jagah Gold) */}
+        {/* TOP ORNAMENTAL LINE */}
         <motion.div
-          initial={{ width: 0, opacity: 0 }}
-          animate={{ width: "200px", opacity: 1 }}
-          transition={{ duration: 1.2, ease: "circOut" }}
-          className="h-[2px] bg-[#C5A27D] mx-auto mb-10 rounded-full shadow-[0_0_15px_rgba(197,162,125,0.5)]"
+          initial={{ width: 0 }}
+          animate={{ width: "80px" }}
+          transition={{ duration: 1.5, ease: "circOut" }}
+          className="h-[1px] bg-[#C5A27D] mb-8"
         ></motion.div>
 
-        {/* 4. MAIN HEADING (Matching Navbar Colors) */}
-        <div className="overflow-hidden mb-2">
-          <motion.h1
-            initial={{ y: 80, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center justify-center gap-x-3 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter"
+        {/* MAIN LOGO ANIMATION */}
+        <div className="flex flex-col items-center overflow-hidden">
+          <motion.div className="flex gap-x-2 md:gap-x-4 mb-2">
+            {logoText.split("").map((char, index) => (
+              <motion.span
+                key={index}
+                initial={{ y: 100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{
+                  delay: 0.2 + index * 0.1,
+                  duration: 0.8,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter text-[#4A4238] font-serif"
+              >
+                {char}
+              </motion.span>
+            ))}
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 1 }}
+            className="text-3xl sm:text-5xl md:text-6xl font-light tracking-[0.4em] text-[#C5A27D] font-serif"
           >
-            <span className="text-[#4A4238]">PAREKH</span>
-            <span className="text-[#C5A27D]">SILK</span>
-          </motion.h1>
+            SILK
+          </motion.h2>
         </div>
 
-        {/* 5. SUBTEXT (Surat, India - Elegant Style) */}
-        <div className="max-w-[1000px] mx-auto overflow-hidden">
+        {/* 4. ELEVATED SUBTEXT */}
+        <div className="mt-8 text-center overflow-hidden">
           <motion.p
-            initial={{ opacity: 0, letterSpacing: "0.1em" }}
-            animate={{ opacity: 1, letterSpacing: "0.5em" }}
-            transition={{ delay: 1.2, duration: 1.5 }}
-            className="text-[#8b8175] text-xs md:text-sm uppercase font-bold text-center mt-4"
+            initial={{ opacity: 0, letterSpacing: "0.2em" }}
+            animate={{ opacity: 1, letterSpacing: "0.6em" }}
+            transition={{ delay: 1.5, duration: 1.2 }}
+            className="text-[#8b8175] text-[10px] md:text-xs uppercase font-bold"
           >
-            Surat • GJ, India
+            Surat • GJ • India
           </motion.p>
         </div>
 
+        {/* BOTTOM ORNAMENTAL LINE */}
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: "80px" }}
+          transition={{ duration: 1.5, ease: "circOut", delay: 0.5 }}
+          className="h-[1px] bg-[#C5A27D] mt-8"
+        ></motion.div>
       </div>
 
-      {/* 6. BOTTOM DECORATIVE ELEMENT */}
+      {/* 5. FLOATING PROGRESS INDICATOR (Minimalist) */}
+      <div className="absolute bottom-20 w-48 h-[1px] bg-gray-200 overflow-hidden">
+        <motion.div
+          initial={{ left: "-100%" }}
+          animate={{ left: "100%" }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-0 w-1/2 bg-gradient-to-r from-transparent via-[#C5A27D] to-transparent"
+        ></motion.div>
+      </div>
+
+      {/* 6. CORNER ACCENTS (Optional for that extra detail) */}
       <motion.div 
-        initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-12 text-[10px] tracking-[0.3em] text-[#C5A27D] font-bold uppercase opacity-60"
-      >
-        Excellence in Every Thread
-      </motion.div>
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 0.4 }} 
+        transition={{ delay: 2 }}
+        className="absolute top-10 left-10 border-l border-t border-[#C5A27D] w-10 h-10"
+      />
+      <motion.div 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 0.4 }} 
+        transition={{ delay: 2 }}
+        className="absolute bottom-10 right-10 border-r border-b border-[#C5A27D] w-10 h-10"
+      />
     </motion.div>
   );
 }
