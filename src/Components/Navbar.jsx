@@ -69,8 +69,10 @@ export default function Navbar() {
   return (
     <>
       {/* Top Bar */}
-      <div className="flex justify-between items-center px-4 md:px-8 py-2 text-xs md:text-sm bg-[#e9dede]">
-        <div>6353778329</div>
+      <div className="flex justify-between items-center px-3 md:px-8 py-2 text-[10px] md:text-sm bg-[#e9dede]">
+        <a href="https://wa.me/916353778329" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-green-600 font-medium transition cursor-pointer">
+          <FaWhatsapp className="text-green-600" size={14} /> 6353778329
+        </a>
         <div className="hidden md:block">
           HC PAREKH & ASSOCIATES - PAREKH SILK (SURAT, GUJRAT)
         </div>
@@ -82,10 +84,10 @@ export default function Navbar() {
       </div>
 
       {/* Main Header */}
-      <div className="flex items-center justify-between px-4 md:px-8 py-3 md:py-4 bg-white">
+      <div className="flex items-center justify-between gap-1 px-3 md:px-8 py-2 md:py-4 bg-white w-full">
 
         {/* LEFT (Mobile Toggle) */}
-        <div className="flex items-center md:hidden">
+        <div className="flex items-center md:hidden shrink-0">
           <Menu
             size={22}
             onClick={() => setMenuOpen(true)}
@@ -99,9 +101,9 @@ export default function Navbar() {
             <div 
               style={{
                 background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.3)'
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.5)'
               }}
-              className="w-[42px] h-[42px] md:w-[48px] md:h-[48px] border-2 border-[#C5A27D] rounded-xl flex items-center justify-center mr-3 shrink-0 transition-all duration-300 hover:scale-105"
+              className="w-[42px] h-[42px] md:w-[48px] md:h-[48px] rounded-xl flex items-center justify-center mr-3 shrink-0 transition-all duration-300 hover:scale-105 border border-black/5"
             >
               <span className="text-[#C5A27D] font-black text-2xl md:text-3xl leading-none">P</span>
             </div>
@@ -119,29 +121,34 @@ export default function Navbar() {
         </div>
 
         {/* CENTER (Mobile Logo) */}
-        <div className="flex md:hidden justify-center flex-1">
+        <div className="flex md:hidden justify-center items-center flex-1 mx-1 shrink-0 overflow-hidden">
           <Link to="/" className="z-[130] flex items-center no-underline">
             <div 
               style={{
                 background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.3)'
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.5)'
               }}
-              className="w-[38px] h-[38px] border-2 border-[#C5A27D] rounded-xl flex items-center justify-center mr-2"
+              className="w-[34px] h-[34px] rounded-lg flex items-center justify-center mr-1.5 shrink-0 border border-black/5"
             >
-              <span className="text-[#C5A27D] font-black text-xl leading-none">P</span>
+              <span className="text-[#C5A27D] font-black text-lg leading-none">P</span>
             </div>
 
-            <span className="text-lg font-black">
-              <span className="text-[#4A4238]">PAREKH</span>
-              <span className="text-[#C5A27D]">SILK</span>
-            </span>
+            <div className="flex flex-col justify-center whitespace-nowrap">
+              <h1 className="flex items-center gap-x-0.5 text-[16px] font-black tracking-tighter leading-none m-0">
+                <span className="text-[#4A4238]">PAREKH</span>
+                <span className="text-[#C5A27D]">SILK</span>
+              </h1>
+              <span className="text-[7.5px] font-bold tracking-[0.2em] text-[#8b8175] mt-[2px]">
+                SURAT • GJ, INDIA
+              </span>
+            </div>
           </Link>
         </div>
 
         {/* RIGHT (Get a Quote Button) */}
-        <div className="flex items-center">
+        <div className="flex items-center shrink-0">
           <Link to="/page/trade-enquiry">
-            <button className="bg-[#C5A27D] hover:bg-[#a8845f] text-white px-4 md:px-6 py-2 rounded-md text-xs md:text-sm font-semibold transition">
+            <button className="bg-[#C5A27D] hover:bg-[#a8845f] text-white px-2 py-1.5 md:px-6 md:py-2 rounded-md text-[10px] md:text-sm font-semibold transition whitespace-nowrap">
               Get a Quote
             </button>
           </Link>
@@ -247,27 +254,53 @@ export default function Navbar() {
         </button>
       </div>
       {/* Mobile Menu */}
-      <div className={`fixed top-0 left-0 w-full h-full bg-white z-[100] transform transition-transform duration-300 ${
+      <div className={`fixed top-0 left-0 w-full h-full bg-gray-50 z-[300] transform transition-transform duration-300 ${
         menuOpen ? "translate-y-0" : "-translate-y-full"
       }`}>
-        <div className="flex justify-between items-center p-5 border-b">
-          <span className="font-semibold text-lg">Menu</span>
-          <X size={28} onClick={() => setMenuOpen(false)} className="cursor-pointer" />
+        <div className="flex justify-between items-center p-5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] bg-white relative z-10">
+          <Link to="/" className="flex items-center no-underline" onClick={() => setMenuOpen(false)}>
+            <div 
+              style={{
+                background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
+                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)'
+              }}
+              className="w-[38px] h-[38px] rounded-lg flex items-center justify-center mr-2 shrink-0 border border-black/5"
+            >
+              <span className="text-[#C5A27D] font-black text-xl leading-none">P</span>
+            </div>
+            <div className="flex flex-col justify-center whitespace-nowrap">
+              <h1 className="flex items-center gap-x-0.5 text-[18px] font-black tracking-tighter leading-none m-0">
+                <span className="text-[#4A4238]">PAREKH</span>
+                <span className="text-[#C5A27D]">SILK</span>
+              </h1>
+              <span className="text-[8px] font-bold tracking-[0.2em] text-[#8b8175] mt-[2px]">
+                SURAT • GJ, INDIA
+              </span>
+            </div>
+          </Link>
+          <div className="w-[38px] h-[38px] rounded-full bg-white shadow-[0_4px_12px_rgba(0,0,0,0.06)] border border-gray-100 flex items-center justify-center cursor-pointer hover:scale-105 transition-all text-gray-700" onClick={() => setMenuOpen(false)}>
+            <X size={20} />
+          </div>
         </div>
 
-        <div className="p-5 space-y-5 overflow-y-auto h-[calc(100%-80px)]">
+        <div className="p-4 space-y-4 overflow-y-auto h-[calc(100%-80px)] bg-[#fdfbf9]">
           {menuItems.map((item, index) => (
-            <div key={index} className="border-b border-gray-100 pb-3 last:border-0">
-              <Link to={item.path || "#"} className="font-medium block py-1" onClick={() => setMenuOpen(false)}>
+            <div key={index} className="bg-white rounded-2xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden transition-all duration-300">
+              <Link to={item.path || "#"} className="font-semibold text-[15px] flex items-center px-6 py-4 hover:bg-[#C5A27D]/5 transition-colors text-gray-800 tracking-wide" onClick={() => setMenuOpen(false)}>
                 {item.name}
               </Link>
 
               {item.dropdown && (
-                <div className="pl-4 mt-2 space-y-2 text-sm text-gray-600">
+                <div className="px-5 pb-5 pt-1 space-y-1.5 text-[13px] flex flex-col font-medium bg-[#faf8f5]/50 border-t border-gray-50/50">
                   {item.dropdown.map((sub, i) => (
-                    <div key={i} className="cursor-pointer hover:text-[#8b5a2b]">
+                    <Link
+                      key={i}
+                      to={`/page/${sub.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-")}`}
+                      className="cursor-pointer text-gray-500 hover:text-[#8b5a2b] hover:bg-white px-4 py-2.5 rounded-xl transition-all duration-200 shadow-sm border border-transparent hover:border-gray-100"
+                      onClick={() => setMenuOpen(false)}
+                    >
                       {sub}
-                    </div>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -276,17 +309,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* WhatsApp Button */}
-      <div className="fixed bottom-6 right-6 z-[90] md:hidden">
-        <a
-          href="https://wa.me/918217771201"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-green-500 hover:bg-green-600 transition text-white p-4 rounded-full shadow-2xl flex items-center justify-center"
-        >
-          <FaWhatsapp size={26} />
-        </a>
-      </div>
+      {/* Duplicate WhatsApp Button removed */}
     </>
   );
 }
