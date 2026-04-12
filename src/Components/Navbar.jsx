@@ -99,13 +99,14 @@ export default function Navbar() {
         <div className="hidden md:flex items-center">
           <Link to="/" className="z-[130] flex items-center no-underline">
             <div
-              style={{
-                background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.5)'
-              }}
-              className="w-[42px] h-[42px] md:w-[48px] md:h-[48px] rounded-xl flex items-center justify-center mr-3 shrink-0 transition-all duration-300 hover:scale-105 border border-black/5"
+
+              className="w-[42px] h-[42px] md:w-[62px] md:h-[62px]  flex items-center justify-center shrink-0 transition-all duration-300 hover:scale-105 overflow-hidden"
             >
-              <span className="text-[#C5A27D] font-black text-2xl md:text-3xl leading-none">P</span>
+              <img
+                src="/9.png"
+                alt="Logo"
+                className="w-full h-full object-contain p-1"
+              />
             </div>
 
             <div className="flex flex-col justify-center">
@@ -124,13 +125,13 @@ export default function Navbar() {
         <div className="flex md:hidden justify-center items-center flex-1 mx-1 shrink-0 overflow-hidden">
           <Link to="/" className="z-[130] flex items-center no-underline">
             <div
-              style={{
-                background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
-                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.5)'
-              }}
-              className="w-[34px] h-[34px] rounded-lg flex items-center justify-center mr-1.5 shrink-0 border border-black/5"
+              className="w-[40px] h-[40px] rounded-lg flex items-center justify-center  shrink-0 overflow-hidden"
             >
-              <span className="text-[#C5A27D] font-black text-lg leading-none">P</span>
+              <img
+                src="/9.png"
+                alt="Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
 
             <div className="flex flex-col justify-center whitespace-nowrap">
@@ -216,8 +217,8 @@ export default function Navbar() {
               {messages.map((msg, idx) => (
                 <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[80%] p-3 rounded-2xl text-xs md:text-sm shadow-sm ${msg.role === 'user'
-                      ? 'bg-[#C5A27D] text-white rounded-br-none'
-                      : 'bg-white text-gray-800 rounded-bl-none'
+                    ? 'bg-[#C5A27D] text-white rounded-br-none'
+                    : 'bg-white text-gray-800 rounded-bl-none'
                     }`}>
                     {msg.text}
                   </div>

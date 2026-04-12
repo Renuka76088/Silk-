@@ -6,132 +6,132 @@ export default function Footer() {
   return (
     <footer className="bg-[#fdfaf6] text-gray-800 mt-20">
       <div className="max-w-screen-xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-8">
-        
+
         {/* Brand / About */}
         <div>
           <Link to="/" className="z-[130] flex items-center no-underline">
-  {/* 🟢 Premium "P" Box with Shadow & Gradient */}
-  <div 
-    style={{
-      background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
-      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.3)'
-    }}
-    className="w-[42px] h-[42px] md:w-[48px] md:h-[48px] border-2 border-[#C5A27D] rounded-xl flex items-center justify-center mr-3 shrink-0 transition-all duration-300 hover:scale-105"
-  >
-    <span className="text-[#C5A27D] font-black text-2xl md:text-3xl leading-none">P</span>
-  </div>
+            {/* 🟢 Premium "P" Box with Shadow & Gradient */}
+            <div
+              className="w-[42px] h-[42px] md:w-[64px] md:h-[64px]  rounded-xl flex items-center justify-center  shrink-0 transition-all duration-300 hover:scale-105 overflow-hidden"
+            >
+              <img
+                src="/9.png"
+                alt="Logo"
+                className="w-full h-full object-contain"
+              />
+            </div>
 
-  {/* 🟢 Text Section (Zero Space) */}
-  <div className="flex flex-col justify-center">
-<h1 className="flex items-center gap-x-1 text-xl md:text-2xl font-black tracking-tighter leading-none">
-  <span className="text-[#4A4238]">PAREKH</span>
-  <span className="text-[#C5A27D]">SILK</span>
-</h1>
-    <span className="text-[9px] md:text-[11px] font-bold tracking-[0.3em] text-[#8b8175] uppercase mt-1">
-      SURAT • GJ, INDIA
-    </span>
-  </div>
-</Link>
+            {/* 🟢 Text Section (Zero Space) */}
+            <div className="flex flex-col justify-center">
+              <h1 className="flex items-center gap-x-1 text-xl md:text-2xl font-black tracking-tighter leading-none">
+                <span className="text-[#4A4238]">PAREKH</span>
+                <span className="text-[#C5A27D]">SILK</span>
+              </h1>
+              <span className="text-[9px] md:text-[11px] font-bold tracking-[0.3em] text-[#8b8175] uppercase mt-1">
+                SURAT • GJ, INDIA
+              </span>
+            </div>
+          </Link>
           <p className="text-sm text-gray-700 mt-3">
             Parekh Silk is a trusted Manufacturers & Supplier of the high standard quality
-of the Silk Products from lower range to higher range at reasonable and low
-price range with best and premium quality, with Quality Assurance and a
-Quality Seal
+            of the Silk Products from lower range to higher range at reasonable and low
+            price range with best and premium quality, with Quality Assurance and a
+            Quality Seal
           </p>
         </div>
 
         {/* Quick Links */}
         <div>
           <h4 className="font-semibold mb-4" style={{ color: "#d6bfa9" }}>Quick Links</h4>
-  
 
-<ul className="space-y-2 text-gray-700 text-sm">
-  <li>
-    <Link 
-      to="/" 
-      className="hover:text-[#b7ab85] cursor-pointer transition block py-1"
-    >
-      Home
-    </Link>
-  </li>
-  
-  <li>
-    <Link
-      to="/products" 
-      className="hover:text-[#b7ab85] cursor-pointer transition block py-1"
-    >
-      Shop
-    </Link>
-  </li>
-  
-  <li>
-    <Link 
-      to="/about" 
-      className="hover:text-[#b7ab85] cursor-pointer transition block py-1"
-    >
-      About Us
-    </Link>
-  </li>
-  
-  <li>
-    <Link 
-      to="/contact" 
-      className="hover:text-[#b7ab85] cursor-pointer transition block py-1"
-    >
-      Contact
-    </Link>
-  </li>
-  
-  <li>
-    <Link 
-      to="/wholesale" 
-      className="hover:text-[#b7ab85] font-semibold cursor-pointer transition block py-1"
-    >
-      Wholesale
-    </Link>
-  </li>
-</ul>
+
+          <ul className="space-y-2 text-gray-700 text-sm">
+            <li>
+              <Link
+                to="/"
+                className="hover:text-[#b7ab85] cursor-pointer transition block py-1"
+              >
+                Home
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/products"
+                className="hover:text-[#b7ab85] cursor-pointer transition block py-1"
+              >
+                Shop
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/about"
+                className="hover:text-[#b7ab85] cursor-pointer transition block py-1"
+              >
+                About Us
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/contact"
+                className="hover:text-[#b7ab85] cursor-pointer transition block py-1"
+              >
+                Contact
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/wholesale"
+                className="hover:text-[#b7ab85] font-semibold cursor-pointer transition block py-1"
+              >
+                Wholesale
+              </Link>
+            </li>
+          </ul>
         </div>
 
         {/* Contact Info */}
-    <div>
-  <h4 
-    className="font-semibold mb-4 text-lg tracking-wide" 
-    style={{ color: "#d6bfa9" }}
-  >
-    Contact
-  </h4>
+        <div>
+          <h4
+            className="font-semibold mb-4 text-lg tracking-wide"
+            style={{ color: "#d6bfa9" }}
+          >
+            Contact
+          </h4>
 
-  {/* Phone */}
-  <p className="text-sm text-gray-700 mb-3">
-    📞 6353778329
-  </p>
+          {/* Phone */}
+          <p className="text-sm text-gray-700 mb-3">
+            📞 6353778329
+          </p>
 
-  {/* Trade Enquiry */}
-  <div className="mb-3">
-    <p className="text-sm font-semibold text-[#4A4238]">
-      Trade Enquiry
-    </p>
-    <p className="text-sm text-gray-600">
-      trade-enquiry@parekhsilk.com
-    </p>
-  </div>
+          {/* Trade Enquiry */}
+          <div className="mb-3">
+            <p className="text-sm font-semibold text-[#4A4238]">
+              Trade Enquiry
+            </p>
+            <p className="text-sm text-gray-600">
+              trade-enquiry@parekhsilk.com
+            </p>
+          </div>
 
-  {/* Customer Care */}
-  <div className="mb-3">
-    <p className="text-sm font-semibold text-[#4A4238]">
-      Customer Care
-    </p>
-    <p className="text-sm text-gray-600">
-      customer-care@parekhsilk.com
-    </p>
-  </div>
+          {/* Customer Care */}
+          <div className="mb-3">
+            <p className="text-sm font-semibold text-[#4A4238]">
+              Customer Care
+            </p>
+            <p className="text-sm text-gray-600">
+              customer-care@parekhsilk.com
+            </p>
+          </div>
 
-  {/* Location */}
-  <p className="text-sm text-gray-700 mt-4 tracking-widest">
-    📍 SURAT • GJ, INDIA
-  </p>
-</div>
+          {/* Location */}
+          <p className="text-sm text-gray-700 mt-4 tracking-widest">
+            📍 SURAT • GJ, INDIA
+          </p>
+        </div>
 
         {/* Social Media */}
         <div>
