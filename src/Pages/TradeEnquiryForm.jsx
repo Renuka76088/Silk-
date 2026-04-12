@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Send, CheckCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { API_BASE_URL } from "../utils/api";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function TradeEnquiryForm() {
@@ -28,7 +29,7 @@ export default function TradeEnquiryForm() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/trade-enquiry", {
+      const response = await fetch(`${API_BASE_URL}/trade-enquiry`, {
         method: "POST",
         body: formData,
       });

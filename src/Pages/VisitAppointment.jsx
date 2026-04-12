@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Send, CheckCircle, Mail, MapPin } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
+import { API_BASE_URL } from "../utils/api";
 
 export default function VisitAppointment() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -28,7 +29,7 @@ export default function VisitAppointment() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/appointment", {
+      const response = await fetch(`${API_BASE_URL}/appointment`, {
         method: "POST",
         body: formData,
       });

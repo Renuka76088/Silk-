@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Send, CheckCircle, Calculator } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { API_BASE_URL } from "../utils/api";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function EQuotationForm() {
@@ -14,7 +15,7 @@ export default function EQuotationForm() {
     setErrorMsg('');
 
     try {
-      const response = await fetch("http://localhost:5000/api/quotation", {
+      const response = await fetch(`${API_BASE_URL}/quotation`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

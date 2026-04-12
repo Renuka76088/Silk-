@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Search, ChevronDown, Loader2 } from "lucide-react";
-import { productApi } from "../utils/api";
+import { productApi, IMAGE_BASE_URL } from "../utils/api";
 
 const staticProductData = [
   { id: 1, name: "DUPIONI SILK FABRIC", count: "37 PRODUCTS", img: "https://images.unsplash.com/photo-1619043518800-7f14be467dca?w=600&auto=format&fit=crop&q=60" },
@@ -23,7 +23,7 @@ export default function SilkPage() {
             id: p._id,
             name: p.title,
             category: p.category,
-            img: `http://localhost:5000/${p.image}`,
+            img: `${IMAGE_BASE_URL}/${p.image}`,
             isProduct: true
           }));
           setProducts(dynamicProducts);

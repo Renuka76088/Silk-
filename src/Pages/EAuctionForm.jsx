@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Send, CheckCircle, Hammer } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { API_BASE_URL } from "../utils/api";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function EAuctionForm() {
@@ -27,7 +28,7 @@ export default function EAuctionForm() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/auction", {
+      const response = await fetch(`${API_BASE_URL}/auction`, {
         method: "POST",
         body: formData,
       });
