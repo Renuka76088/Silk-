@@ -73,9 +73,9 @@ export default function Navbar() {
         <a href="https://wa.me/916353778329" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-green-600 font-medium transition cursor-pointer">
           <FaWhatsapp className="text-green-600" size={14} /> 6353778329
         </a>
-        <div className="hidden md:block">
+        {/* <div className="hidden md:block">
           HC PAREKH & ASSOCIATES - PAREKH SILK (SURAT, GUJRAT)
-        </div>
+        </div> */}
         <div className="flex items-center gap-3">
           <FaInstagram className="text-pink-500 cursor-pointer" />
           <FaFacebook className="text-blue-500 cursor-pointer" />
@@ -170,7 +170,7 @@ export default function Navbar() {
             </Link>
 
             {item.dropdown && (
-              <div className="absolute left-0 top-full mt-1 hidden group-hover:block bg-white shadow-xl rounded-md py-3 min-w-[220px] z-50 border border-gray-200">
+              <div className="absolute left-0 top-full hidden group-hover:block bg-white shadow-xl rounded-md py-3 min-w-[220px] z-50 border border-gray-200">
                 {item.dropdown.map((sub, i) => (
                   <Link
                     key={i}

@@ -17,14 +17,7 @@ export default function TenderContractsUI() {
                 CORPORATE TENDERS | Textile Sector
               </h2>
             </div>
-            <div className="text-right">
-              <p className="font-bold text-sm text-gray-500">
-                HC Parekh & Associates
-              </p>
-              <p className="text-xs text-gray-400">
-                Leading Industrial Consultant Since 2007
-              </p>
-            </div>
+          
           </div>
         </div>
 
