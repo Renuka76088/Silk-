@@ -14,6 +14,18 @@ export const formsApi = {
   submitAppointment: (data) => api.post('/appointment', data),
 };
 
+export const mediaApi = {
+  getAll: (siteId) => api.get(`/media-events?siteId=${siteId}`),
+};
+
+export const blogApi = {
+  getAll: (siteId) => api.get(`/blogs?siteId=${siteId}`),
+};
+
+export const careerApi = {
+  getAll: (siteId) => api.get(`/careers?siteId=${siteId}`),
+};
+
 export const productApi = {
   getAll: (siteId) => api.get(`/product?siteId=${siteId}`),
 };

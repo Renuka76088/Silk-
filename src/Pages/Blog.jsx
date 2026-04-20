@@ -1,38 +1,68 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-const blogPosts = [
-  {
-    id: 1,
-    title: "The Timeless Elegance of Pure Banarasi Silk",
-    excerpt: "Explore why Banarasi silk remains the first choice for weddings and special occasions...",
-    date: "March 10, 2026",
-    image: "https://images.unsplash.com/photo-1617055407123-3d7130c1f940?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2lsa3xlbnwwfHwwfHx8MA%3D%3D",
-  },
-  {
-    id: 2,
-    title: "How to Care for Your Silk Sarees This Monsoon",
-    excerpt: "Monsoon tips to keep your precious silk collection safe from humidity and stains...",
-    date: "February 28, 2026",
-    image: "https://images.unsplash.com/photo-1620763050148-af058ab2fff0?w=800",
-  },
-  {
-    id: 3,
-    title: "From Cocoon to Couture: The Journey of Silk",
-    excerpt: "A behind-the-scenes look at how silk is made and why it's so luxurious...",
-    date: "January 15, 2026",
-    image: "https://plus.unsplash.com/premium_photo-1661962431511-32e4ebf7e5b0?w=800",
-  },
-  {
-    id: 4,
-    title: "Trending Silk Blouses for 2026",
-    excerpt: "Latest designs and color combinations that are ruling the fashion scene...",
-    date: "December 5, 2025",
-    image: "https://images.unsplash.com/photo-1619043518800-7f14be467dca?w=800",
-  },
-];
+import { blogApi, IMAGE_BASE_URL } from "../utils/api";
 
 export default function Blog() {
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const staticBlogPosts = [
+    {
+      id: 1,
+      title: "The Timeless Elegance of Pure Banarasi Silk",
+      excerpt: "Explore why Banarasi silk remains the first choice for weddings and special occasions...",
+      date: "March 10, 2026",
+      image: "https://images.unsplash.com/photo-1617055407123-3d7130c1f940?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2lsa3xlbnwwfHwwfHx8MA%3D%3D",
+    },
+    {
+      id: 2,
+      title: "How to Care for Your Silk Sarees This Monsoon",
+      excerpt: "Monsoon tips to keep your precious silk collection safe from humidity and stains...",
+      date: "February 28, 2026",
+      image: "https://images.unsplash.com/photo-1620763050148-af058ab2fff0?w=800",
+    },
+    {
+      id: 3,
+      title: "From Cocoon to Couture: The Journey of Silk",
+      excerpt: "A behind-the-scenes look at how silk is made and why it's so luxurious...",
+      date: "January 15, 2026",
+      image: "https://plus.unsplash.com/premium_photo-1661962431511-32e4ebf7e5b0?w=800",
+    },
+    {
+      id: 4,
+      title: "Trending Silk Blouses for 2026",
+      excerpt: "Latest designs and color combinations that are ruling the fashion scene...",
+      date: "December 5, 2025",
+      image: "https://images.unsplash.com/photo-1619043518800-7f14be467dca?w=800",
+    },
+  ];
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await blogApi.getAll('ParekhSilk07');
+        if (response.data.success && response.data.data.length > 0) {
+          const dynamicPosts = response.data.data.map(post => ({
+            id: post._id,
+            title: post.title,
+            excerpt: post.content || "Insights into the world of luxury fabrics and silk craftsmanship.",
+            date: post.date ? new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : "Recently Added",
+            image: post.thumbnail ? `${IMAGE_BASE_URL}/${post.thumbnail}` : staticBlogPosts[0].image,
+          }));
+          setBlogPosts(dynamicPosts);
+        } else {
+          setBlogPosts(staticBlogPosts);
+        }
+      } catch (error) {
+        console.error("Blog fetch error:", error);
+        setBlogPosts(staticBlogPosts);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
   return (
     <div className="min-h-screen font-sans text-gray-800 relative">
       
@@ -115,6 +145,13 @@ export default function Blog() {
             </article>
           ))}
         </div>
+
+        {/* Loading state if needed */}
+        {loading && blogPosts.length === 0 && (
+          <div className="text-center py-20 text-[#8b5a2b] font-medium animate-pulse">
+            Fetching latest silk stories...
+          </div>
+        )}
 
       </main>
     </div>

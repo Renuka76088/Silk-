@@ -1,10 +1,13 @@
 // MediaGallery.jsx
-import React from "react";
-
+import React, { useState, useEffect } from "react";
+import { mediaApi, IMAGE_BASE_URL } from "../utils/api";
 
 export default function MediaGallery() {
-  // Sample gallery items – aap apne real images se replace kar dena
-  const galleryItems = [
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Sample static gallery items as fallback
+  const staticGalleryItems = [
     {
       id: 1,
       title: "Pure Silk Satin Drapes",
@@ -55,9 +58,33 @@ export default function MediaGallery() {
     },
   ];
 
+  useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        const response = await mediaApi.getAll('ParekhSilk07');
+        if (response.data.success && response.data.data.length > 0) {
+          const dynamicItems = response.data.data.map(item => ({
+            id: item._id,
+            title: item.title,
+            description: item.category || "Media Event",
+            image: `${IMAGE_BASE_URL}/${item.image}`,
+          }));
+          setGalleryItems(dynamicItems);
+        } else {
+          setGalleryItems(staticGalleryItems);
+        }
+      } catch (error) {
+        console.error("Media fetch error:", error);
+        setGalleryItems(staticGalleryItems);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMedia();
+  }, []);
+
   return (
     <div className="min-h-screen font-sans text-gray-800 relative">
-
 
       {/* Soft Creamy Silk Background – No Brown Tones */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
@@ -119,6 +146,13 @@ export default function MediaGallery() {
           ))}
         </div>
 
+        {/* Loading indicator if still loading and no items yet */}
+        {loading && galleryItems.length === 0 && (
+          <div className="text-center py-20 text-[#8b5a2b] font-medium animate-pulse">
+            Loading luxurious collection...
+          </div>
+        )}
+
         {/* Call to Action */}
         <div className="text-center mt-16">
           <p className="text-lg text-gray-700 mb-6">
@@ -133,8 +167,6 @@ export default function MediaGallery() {
           </a>
         </div>
       </main>
-
-      {/* Footer */}
 
     </div>
   );
