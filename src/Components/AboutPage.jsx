@@ -30,7 +30,7 @@ function AboutPage() {
 
   {/* NEW DETAILED CONTENT */}
   <p className="text-gray-700 text-sm md:text-lg mb-5 leading-relaxed">
-Parekh Silk is a trusted Manufacturers & Supplier of the high standard quality
+Parekh Silk is a trusted Manufacturer & Supplier of the high standard quality
 of the Silk Products from lower range to higher range at reasonable and low
 price range with best and  <span className="font-medium text-black">premium quality, with Quality Assurance and a
 Quality Seal.

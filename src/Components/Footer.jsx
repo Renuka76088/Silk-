@@ -33,7 +33,7 @@ export default function Footer() {
             </div>
           </Link>
           <p className="text-sm text-gray-700 mt-3">
-            Parekh Silk is a trusted Manufacturers & Supplier of the high standard quality
+            Parekh Silk is a trusted Manufacturer & Supplier of the high standard quality
             of the Silk Products from lower range to higher range at reasonable and low
             price range with best and premium quality, with Quality Assurance and a
             Quality Seal

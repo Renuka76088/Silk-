@@ -71,9 +71,9 @@ export default function TradeEnquiryForm() {
                 <div className="w-20 h-20 bg-[#FAF9F6] rounded-full flex items-center justify-center mb-6 border-2 border-[#B8860B]/20">
                   <CheckCircle size={40} className="text-[#B8860B]" />
                 </div>
-                <h3 className="text-3xl font-black uppercase tracking-tighter text-[#8B5E3C] mb-4">Inquiry Received</h3>
+                <h3 className="text-3xl font-black uppercase tracking-tighter text-[#8B5E3C] mb-4">Enquiry Received</h3>
                 <p className="text-gray-500 max-w-sm mx-auto text-sm leading-relaxed font-medium uppercase tracking-tight">
-                  Thank you! Your trade inquiry has been successfully submitted. Our silk commercial team will contact you shortly.
+                  Thank you! Your trade enquiry has been successfully submitted. Our silk commercial team will contact you shortly.
                 </p>
               </motion.div>
             ) : (
