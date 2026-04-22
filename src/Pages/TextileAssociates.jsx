@@ -9,21 +9,21 @@ export default function Associates() {
         paddingTop: Header se gap dene ke liye
         overflow-hidden: Taaki koi element screen se bahar na jaye
       */}
-      <div 
+      <div
         className="relative mx-auto overflow-hidden"
-        style={{ 
-          maxWidth: "1000px", 
+        style={{
+          maxWidth: "1000px",
           paddingTop: "120px", // Header height adjustment
           paddingBottom: "50px"
         }}
       >
-        
+
         {/* --- Map & Video Section --- */}
         <div className="relative w-full flex justify-center items-center">
-          
+
           {/* SVG Start (Iske bina foreignObject nahi chalega) */}
-          <svg 
-            viewBox="0 0 1000 1000" 
+          <svg
+            viewBox="0 0 1000 1000"
             className="w-full h-auto"
             preserveAspectRatio="xMidYMid meet"
           >
@@ -31,37 +31,37 @@ export default function Associates() {
             <rect x="10" y="10" width="980" height="980" fill="none" stroke="#f0f0f0" stroke-width="1" />
 
             {/* Title inside SVG for perfect alignment */}
-            <text 
-              x="500" y="60" 
-              textAnchor="middle" 
+            <text
+              x="500" y="60"
+              textAnchor="middle"
               className="text-2xl font-bold fill-gray-800 uppercase tracking-[0.3em]"
               style={{ fontFamily: 'serif' }}
             >
-              Our Associates Network
+              Our Textile Associates
             </text>
 
             {/* 🗺️ VIDEO IMPLEMENTATION */}
             <foreignObject x="50" y="100" width="900" height="850">
-              <div 
-                xmlns="http://www.w3.org/1999/xhtml" 
-                style={{ 
-                  width: "100%", 
-                  height: "100%", 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: "center" 
+              <div
+                xmlns="http://www.w3.org/1999/xhtml"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center"
                 }}
               >
-                <video 
-                  autoPlay 
-                  loop 
-                  muted 
-                  playsInline 
-                  style={{ 
-                    width: "100%", 
-                    height: "100%", 
-                    objectFit: "contain", 
-                  
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+
                   }}
                 >
                   <source src={vedio} type="video/mp4" />

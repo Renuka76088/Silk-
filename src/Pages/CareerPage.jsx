@@ -139,7 +139,7 @@ export default function CareerPage() {
             <h2 className="text-2xl md:text-3xl font-semibold text-[#8b5a2b] mb-4 italic">
               "( At present, No Vacancy )"
             </h2>
-            <p className="text-gray-600 text-lg max-w-md">
+            <p className="text-gray-600 p-2 text-lg max-w-md">
               There are currently no job openings available.
               Please revisit this page for future career opportunities.
             </p>

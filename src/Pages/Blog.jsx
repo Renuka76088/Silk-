@@ -47,7 +47,7 @@ export default function Blog() {
             title: post.title,
             excerpt: post.content || "Insights into the world of luxury fabrics and silk craftsmanship.",
             date: post.date ? new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : "Recently Added",
-            image: post.thumbnail ? `${IMAGE_BASE_URL}/${post.thumbnail}` : staticBlogPosts[0].image,
+            image: post.thumbnail?.startsWith("http") ? post.thumbnail : `${IMAGE_BASE_URL}/${post.thumbnail}`,
           }));
           setBlogPosts(dynamicPosts);
         } else {

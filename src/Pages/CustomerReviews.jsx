@@ -144,13 +144,13 @@ export default function CustomerReviews() {
           <p className="text-gray-600 mb-6">
             Share your feedback with us and help others discover pure silk excellence.
           </p>
-          <a
+          {/* <a
             href="mailto:hemant.parekh2012@gmail.com?subject=Customer Review - Parekh Silk"
             className="bg-[#8b5a2b] text-white px-8 py-3 rounded-md font-medium hover:bg-[#a16a3a] transition inline-flex items-center"
           >
             Submit Your Review
             <span className="ml-2">→</span>
-          </a>
+          </a> */}
         </div>
       </main>
 

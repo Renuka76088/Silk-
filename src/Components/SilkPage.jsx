@@ -23,7 +23,7 @@ export default function SilkPage() {
             id: p._id,
             name: p.title,
             category: p.category,
-            img: `${IMAGE_BASE_URL}/${p.image}`,
+            img: p.image?.startsWith("http") ? p.image : `${IMAGE_BASE_URL}/${p.image}`,
             isProduct: true
           }));
           setProducts(dynamicProducts);
