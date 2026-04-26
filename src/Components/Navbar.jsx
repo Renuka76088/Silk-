@@ -258,13 +258,13 @@ export default function Navbar() {
         <div className="flex justify-between items-center p-5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] bg-white relative z-10">
           <Link to="/" className="flex items-center no-underline" onClick={() => setMenuOpen(false)}>
             <div
-              style={{
-                background: 'linear-gradient(135deg, rgba(113, 127, 224, 0.15) 0%, rgba(113, 127, 224, 0.05) 100%)',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)'
-              }}
-              className="w-[38px] h-[38px] rounded-lg flex items-center justify-center mr-2 shrink-0 border border-black/5"
+              className="w-[38px] h-[38px] rounded-lg flex items-center justify-center mr-2 shrink-0 overflow-hidden"
             >
-              <span className="text-[#C5A27D] font-black text-xl leading-none">P</span>
+              <img
+                src="/9.png"
+                alt="Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div className="flex flex-col justify-center whitespace-nowrap">
               <h1 className="flex items-center gap-x-0.5 text-[18px] font-black tracking-tighter leading-none m-0">
