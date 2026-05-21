@@ -19,6 +19,7 @@ import CareerPage from './Pages/CareerPage'
 import Navbar from './Components/Navbar'
 import Circular from './Pages/Circular'
 import Blog from './Pages/Blog'
+import BlogDetails from './Pages/BlogDetails.jsx'
 import CustomerReviews from './Pages/CustomerReviews'
 import VisitAppointment from './Pages/VisitAppointment'
 import MediaGallery from './Pages/MediaGallery'
@@ -59,6 +60,7 @@ const [loading, setLoading] = useState(true);
       <Route path='/page/career' element={<CareerPage/>}/>
       <Route path='/page/circular' element={<Circular/>}/>
       <Route path='/page/blog' element={<Blog/>}/>
+      <Route path='/page/blog/:id' element={<BlogDetails/>}/>
       <Route path='/page/customer-review' element={<CustomerReviews/>}/>
       <Route path='/appointment' element={<VisitAppointment/>}/>
       <Route path='/media' element={<MediaGallery/>}/>

@@ -1,48 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { blogApi, IMAGE_BASE_URL } from "../utils/api";
+import { Link, useNavigate } from "react-router-dom";
+import { blogApi, blogHeaderApi, IMAGE_BASE_URL } from "../utils/api";
 
 export default function Blog() {
   const [blogPosts, setBlogPosts] = useState([]);
+  const [headerData, setHeaderData] = useState({
+    title: "Our Blog",
+    description: "Insights into the world of luxury fabrics and silk craftsmanship."
+  });
   const [loading, setLoading] = useState(true);
-
-  const staticBlogPosts = [
-    {
-      id: 1,
-      title: "The Timeless Elegance of Pure Banarasi Silk",
-      excerpt: "Explore why Banarasi silk remains the first choice for weddings and special occasions...",
-      date: "March 10, 2026",
-      image: "https://images.unsplash.com/photo-1617055407123-3d7130c1f940?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2lsa3xlbnwwfHwwfHx8MA%3D%3D",
-    },
-    {
-      id: 2,
-      title: "How to Care for Your Silk Sarees This Monsoon",
-      excerpt: "Monsoon tips to keep your precious silk collection safe from humidity and stains...",
-      date: "February 28, 2026",
-      image: "https://images.unsplash.com/photo-1620763050148-af058ab2fff0?w=800",
-    },
-    {
-      id: 3,
-      title: "From Cocoon to Couture: The Journey of Silk",
-      excerpt: "A behind-the-scenes look at how silk is made and why it's so luxurious...",
-      date: "January 15, 2026",
-      image: "https://plus.unsplash.com/premium_photo-1661962431511-32e4ebf7e5b0?w=800",
-    },
-    {
-      id: 4,
-      title: "Trending Silk Blouses for 2026",
-      excerpt: "Latest designs and color combinations that are ruling the fashion scene...",
-      date: "December 5, 2025",
-      image: "https://images.unsplash.com/photo-1619043518800-7f14be467dca?w=800",
-    },
-  ];
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await blogApi.getAll('ParekhSilk07');
-        if (response.data.success && response.data.data.length > 0) {
-          const dynamicPosts = response.data.data.map(post => ({
+        const [headerRes, blogsRes] = await Promise.all([
+          blogHeaderApi.get('ParekhSilk07'),
+          blogApi.getAll('ParekhSilk07')
+        ]);
+        
+        if (headerRes.data && headerRes.data.success && headerRes.data.data) {
+          setHeaderData(headerRes.data.data);
+        }
+
+        if (blogsRes.data && blogsRes.data.success && blogsRes.data.data.length > 0) {
+          const dynamicPosts = blogsRes.data.data.map(post => ({
             id: post._id,
             title: post.title,
             excerpt: post.content || "Insights into the world of luxury fabrics and silk craftsmanship.",
@@ -51,11 +33,11 @@ export default function Blog() {
           }));
           setBlogPosts(dynamicPosts);
         } else {
-          setBlogPosts(staticBlogPosts);
+          setBlogPosts([]);
         }
       } catch (error) {
         console.error("Blog fetch error:", error);
-        setBlogPosts(staticBlogPosts);
+        setBlogPosts([]);
       } finally {
         setLoading(false);
       }
@@ -84,19 +66,28 @@ export default function Blog() {
         {/* Header Section with Campaign & Signature */}
         <div className="text-center mb-16 md:mb-24">
           <h1 className="text-4xl md:text-5xl font-light tracking-[4px] uppercase text-[#8b5a2b] mb-8">
-            Our Blog
+            {headerData.title || "Our Blog"}
           </h1>
           
           <div className="max-w-3xl mx-auto">
-            <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-light italic mb-6">
-              "Join and participate in our nation-wide campaign to digitalize the Textile Sector, one of the largest sectors of India."
-            </p>
+            {headerData.description && (
+              <div 
+                className="text-xl md:text-2xl text-gray-600 leading-relaxed font-light italic mb-6 break-words overflow-hidden"
+                dangerouslySetInnerHTML={{ __html: headerData.description.replace(/&nbsp;/g, ' ') }}
+              />
+            )}
             
             {/* HC Parekh Signature */}
-            <div className="flex flex-col items-center">
-               <h4 className="text-[#2C3E50] font-serif text-xl font-bold tracking-wide uppercase">HC Parekh</h4>
-               <p className="text-[#8b5a2b] text-sm font-medium tracking-[0.1em] mt-1">Textile Manufacturer & Entrepreneur</p>
-               <p className="text-gray-400 text-xs mt-1">India</p>
+            <div className="flex flex-col items-center mt-6">
+               <h4 className="text-[#2C3E50] font-serif text-xl font-bold tracking-wide uppercase">
+                 {headerData.authorName || "HC Parekh"}
+               </h4>
+               <p className="text-[#8b5a2b] text-sm font-medium tracking-[0.1em] mt-1">
+                 {headerData.authorRole || "Textile Manufacturer & Entrepreneur"}
+               </p>
+               <p className="text-gray-400 text-xs mt-1 uppercase tracking-widest">
+                 {headerData.country || "India"}
+               </p>
             </div>
           </div>
 
@@ -106,7 +97,11 @@ export default function Blog() {
         {/* Blog Grid - Dynamic Rendering */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {blogPosts.map((post) => (
-            <article key={post.id} className="group bg-white/70 backdrop-blur-sm rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-[#e9dede]/60 flex flex-col">
+            <article 
+              key={post.id} 
+              onClick={() => navigate(`/page/blog/${post.id}`)}
+              className="group cursor-pointer bg-white/70 backdrop-blur-sm rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-[#e9dede]/60 flex flex-col"
+            >
               
               {/* Image Container */}
               <div className="relative h-64 overflow-hidden">
@@ -123,23 +118,19 @@ export default function Blog() {
 
               {/* Content Container */}
               <div className="p-8 flex flex-col flex-grow">
-                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8b5a2b] mb-3">Pure Silk Insights</div>
-
                 <h2 className="text-2xl font-serif text-[#2d0a4e] mb-4 leading-tight group-hover:text-[#8b5a2b] transition-colors">
                   {post.title}
                 </h2>
 
-                <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed font-sans">
-                  {post.excerpt}
-                </p>
+                <div 
+                  className="text-gray-600 mb-6 line-clamp-3 leading-relaxed font-sans overflow-hidden"
+                  dangerouslySetInnerHTML={{ __html: (post.excerpt || '').replace(/&nbsp;/g, ' ') }}
+                />
 
                 <div className="mt-auto">
-                  <Link
-                    to={`/blog/${post.id}`}
-                    className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-[#2d0a4e] group-hover:text-[#8b5a2b] transition-all"
-                  >
+                  <span className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-[#2d0a4e] group-hover:text-[#8b5a2b] transition-all">
                     Read Article <span className="ml-2 group-hover:translate-x-2 transition-transform">→</span>
-                  </Link>
+                  </span>
                 </div>
               </div>
             </article>
@@ -150,6 +141,13 @@ export default function Blog() {
         {loading && blogPosts.length === 0 && (
           <div className="text-center py-20 text-[#8b5a2b] font-medium animate-pulse">
             Fetching latest silk stories...
+          </div>
+        )}
+
+        {/* Empty state */}
+        {!loading && blogPosts.length === 0 && (
+          <div className="text-center py-20 text-gray-500 font-medium text-lg">
+            No blogs available at the moment.
           </div>
         )}
 

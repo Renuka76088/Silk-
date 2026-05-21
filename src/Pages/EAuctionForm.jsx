@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Send, CheckCircle, Hammer } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { API_BASE_URL } from "../utils/api";
+import { API_BASE_URL, eAuctionApi, IMAGE_BASE_URL } from "../utils/api";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function EAuctionForm() {
@@ -9,6 +9,29 @@ export default function EAuctionForm() {
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [headerData, setHeaderData] = useState({ title: "e-Auction Portal", description: "( At presently, No e-Auction published )" });
+  const [auctions, setAuctions] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [headerRes, cardsRes] = await Promise.all([
+          eAuctionApi.getHeader("ParekhSilk07"),
+          eAuctionApi.getAll("ParekhSilk07")
+        ]);
+
+        if (headerRes.data?.success && headerRes.data?.data) {
+          setHeaderData(headerRes.data.data);
+        }
+        if (cardsRes.data?.success && cardsRes.data?.data) {
+          setAuctions(cardsRes.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -52,10 +75,44 @@ export default function EAuctionForm() {
     <div className="min-h-screen bg-slate-50 py-28 px-6 font-sans">
       <div className="max-w-4xl mx-auto">
         <div className="mb-12 text-center md:text-left">
-          <span className="text-[11px] font-black uppercase tracking-[0.4em] text-[#8B5E3C] block mb-2">Liquidation Portal</span>
-          <h1 className="text-3xl md:text-5xl font-black  tracking-tighter text-slate-900">e-Auction <span className="text-slate-400">Portal.</span></h1>
-          <p className="text-slate-500 font-bold tracking-widest text-[10px] mt-4">( At presently, No e-Auction published )</p>
+          {/* <span className="text-[11px] font-black uppercase tracking-[0.4em] text-[#8B5E3C] block mb-2">Liquidation Portal</span> */}
+          <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900">
+            {headerData.title || "e-Auction Portal"}
+          </h1>
+          {headerData.description && (
+            <div
+              className="text-slate-500 font-medium text-sm mt-4 whitespace-pre-wrap break-words overflow-hidden"
+              dangerouslySetInnerHTML={{ __html: (headerData.description || '').replace(/&nbsp;/g, ' ') }}
+            />
+          )}
         </div>
+
+        {auctions.length > 0 && (
+          <div className="mb-12 bg-white border border-slate-200 overflow-hidden shadow-sm rounded-sm p-8">
+            <h2 className="text-2xl font-bold mb-6 text-slate-900">Available Auctions</h2>
+            <div className="grid grid-cols-1 gap-6">
+              {auctions.map((item) => (
+                <div key={item._id} className="border border-slate-200 rounded-md overflow-hidden flex flex-col md:flex-row">
+                  {item.image && (
+                    <img
+                      src={item.image.startsWith('http') ? item.image : `${IMAGE_BASE_URL}/${item.image.replace(/\\/g, '/')}`}
+                      alt={item.title}
+                      className="w-full md:w-72 h-48 md:h-auto object-cover shrink-0"
+                    />
+                  )}
+                  <div className="p-6 flex-1 flex flex-col overflow-hidden">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2 break-words">{item.title}</h3>
+                    <div
+                      className="text-sm text-slate-600 mb-4 whitespace-pre-wrap break-words overflow-hidden flex-1"
+                      dangerouslySetInnerHTML={{ __html: (item.description || '').replace(/&nbsp;/g, ' ') }}
+                    />
+                    {item.date && <p className="text-xs text-slate-400 mt-auto font-semibold">Published: {new Date(item.date).toLocaleDateString()}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="bg-white border border-slate-200 overflow-hidden shadow-2xl rounded-sm p-10 md:p-14">
           <div className="flex justify-between items-start mb-10 border-b border-slate-100 pb-6">

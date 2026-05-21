@@ -1,20 +1,27 @@
-// CareerPage.jsx
 import React, { useState, useEffect } from "react";
-import { careerApi } from "../utils/api";
+import { careerApi, careerHeaderApi } from "../utils/api";
 import { Briefcase, MapPin, Clock, Mail } from "lucide-react";
 
 export default function CareerPage() {
   const [jobs, setJobs] = useState([]);
+  const [headerData, setHeaderData] = useState({
+    title: "Join Our Team",
+    description: "Explore opportunities to grow with HC Parekh & Associates – where tradition meets excellence in the world of pure silk."
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCareers = async () => {
       try {
-        const response = await careerApi.getAll('ParekhSilk07');
-        if (response.data.success && response.data.data.length > 0) {
-          // Filter only active jobs if status is available in future, 
-          // or just show what's returned for this siteId
-          setJobs(response.data.data);
+        const [headerRes, jobsRes] = await Promise.all([
+          careerHeaderApi.get('ParekhSilk07'),
+          careerApi.getAll('ParekhSilk07')
+        ]);
+        if (headerRes.data && headerRes.data.success && headerRes.data.data) {
+          setHeaderData(headerRes.data.data);
+        }
+        if (jobsRes.data && jobsRes.data.success && jobsRes.data.data) {
+          setJobs(jobsRes.data.data);
         } else {
           setJobs([]);
         }
@@ -27,6 +34,14 @@ export default function CareerPage() {
     };
     fetchCareers();
   }, []);
+
+  const handleApply = (job) => {
+    const email = job.contactEmail || job.email || 'careers@parekhsilk.com';
+    const subject = encodeURIComponent(`Application for ${job.title} - Parekh Silk`);
+    const body = encodeURIComponent(`Hello Team,\n\nI am interested in applying for the position of ${job.title} at Parekh Silk.\n\nPlease find attached my CV/Resume and experience details.\n\nBest Regards,\n[My Name]`);
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`;
+    window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div className="min-h-screen font-sans text-gray-800 relative">
@@ -62,11 +77,14 @@ export default function CareerPage() {
         {/* Page Header */}
         <div className="text-center mb-12 md:mb-16">
           <h1 className="text-4xl md:text-5xl font-light tracking-[5px] uppercase text-[#8b5a2b] mb-4">
-            Join Our Team
+            {headerData.title || "Join Our Team"}
           </h1>
-          <p className="text-lg md:text-xl text-gray-700 tracking-wide max-w-3xl mx-auto">
-            Explore opportunities to grow with HC Parekh & Associates – where tradition meets excellence in the world of pure silk.
-          </p>
+          {headerData.description && (
+            <div 
+              className="text-lg md:text-xl text-gray-700 tracking-wide max-w-3xl mx-auto break-words overflow-hidden"
+              dangerouslySetInnerHTML={{ __html: headerData.description.replace(/&nbsp;/g, ' ') }}
+            />
+          )}
           <div className="w-20 h-1 bg-[#d6bfa9] mx-auto mt-6 rounded-full"></div>
         </div>
 
@@ -82,53 +100,67 @@ export default function CareerPage() {
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                   <div className="flex-grow">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="bg-[#f3e5d8] text-[#8b5a2b] px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
-                        {job.jobType || "Full Time"}
-                      </span>
+                      {job.jobType && (
+                        <span className="bg-[#f3e5d8] text-[#8b5a2b] px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                          {job.jobType}
+                        </span>
+                      )}
                       <span className="text-gray-400 text-xs font-medium italic">
                         Posted on {new Date(job.createdAt).toLocaleDateString()}
                       </span>
                     </div>
 
-                    <h2 className="text-2xl md:text-3xl  text-[#000] mb-4">
+                    <h2 className="text-2xl md:text-3xl text-[#000] mb-4">
                       {job.title}
                     </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Briefcase size={16} className="text-[#8b5a2b]" />
-                        <span className="text-sm font-medium">{job.experience || "Experience Negotiable"}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <MapPin size={16} className="text-[#8b5a2b]" />
-                        <span className="text-sm font-medium">{job.location || "Surat, Gujarat"}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Clock size={16} className="text-[#8b5a2b]" />
-                        <span className="text-sm font-medium">{job.type || "Full Time"}</span>
-                      </div>
+                      {job.location && (
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <MapPin size={16} className="text-[#8b5a2b]" />
+                          <span className="text-sm font-medium">{job.location}</span>
+                        </div>
+                      )}
+                      {job.type && (
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <Clock size={16} className="text-[#8b5a2b]" />
+                          <span className="text-sm font-medium">{job.type}</span>
+                        </div>
+                      )}
                       <div className="flex items-center gap-2 text-gray-600">
                         <Mail size={16} className="text-[#8b5a2b]" />
                         <span className="text-sm font-medium">{job.contactEmail || job.email || "careers@parekhsilk.com"}</span>
                       </div>
                     </div>
 
-                    <div className="border-t border-gray-100 pt-6">
-                      <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#8b5a2b] mb-3">Description & Requirements</h4>
-                      <p className="text-gray-600 leading-relaxed text-sm md:text-base whitespace-pre-line">
-                        {job.description || "Join our team to contribute to the legacy of pure silk. We are looking for passionate individuals who value excellence and craftsmanship."}
-                      </p>
+                    <div className="border-t border-gray-100 pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#8b5a2b] mb-3">Description</h4>
+                        <div 
+                          className="text-gray-600 leading-relaxed text-sm md:text-base whitespace-pre-wrap break-words overflow-hidden"
+                          dangerouslySetInnerHTML={{ __html: (job.description || '').replace(/&nbsp;/g, ' ') }}
+                        />
+                      </div>
+                      {job.experience && (
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#8b5a2b] mb-3">Requirements</h4>
+                          <div 
+                            className="text-gray-600 leading-relaxed text-sm md:text-base whitespace-pre-wrap break-words overflow-hidden"
+                            dangerouslySetInnerHTML={{ __html: (job.experience || '').replace(/&nbsp;/g, ' ') }}
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  <div className="shrink-0">
-                    <a
-                      href={`mailto:${job.contactEmail || job.email || 'careers@parekhsilk.com'}?subject=Application for ${job.title}`}
-                      className="inline-block bg-[#8b5a2b] hover:bg-[#2d0a4e] text-white px-8 py-4 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all shadow-lg hover:shadow-2xl text-center w-full md:w-auto"
-                    >
-                      Apply Now
-                    </a>
-                  </div>
+                    <div className="shrink-0">
+                      <button
+                        onClick={() => handleApply(job)}
+                        className="inline-block bg-[#8b5a2b] hover:bg-[#2d0a4e] text-white px-8 py-4 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all shadow-lg hover:shadow-2xl text-center w-full md:w-auto"
+                      >
+                        Apply Now
+                      </button>
+                    </div>
                 </div>
               </div>
             ))}

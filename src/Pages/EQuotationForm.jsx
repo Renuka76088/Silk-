@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Send, CheckCircle, Calculator } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { API_BASE_URL } from "../utils/api";
+import { API_BASE_URL, eQuotationApi, IMAGE_BASE_URL } from "../utils/api";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function EQuotationForm() {
@@ -9,6 +9,29 @@ export default function EQuotationForm() {
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [headerData, setHeaderData] = useState({ title: "e-Quotation", description: "" });
+  const [quotations, setQuotations] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [headerRes, cardsRes] = await Promise.all([
+          eQuotationApi.getHeader("ParekhSilk07"),
+          eQuotationApi.getAll("ParekhSilk07")
+        ]);
+
+        if (headerRes.data?.success && headerRes.data?.data) {
+          setHeaderData(headerRes.data.data);
+        }
+        if (cardsRes.data?.success && cardsRes.data?.data) {
+          setQuotations(cardsRes.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -52,8 +75,41 @@ export default function EQuotationForm() {
         {/* Header - deep bronze/gold silk color */}
         <div className="bg-[#8B5E3C] p-10 text-white relative">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-10 -mt-10 blur-2xl"></div>
-          <h1 className="text-4xl font-black tracking-tighter leading-none">e-Quotation <span className="text-[#D4AF37] block text-sm mt-2 tracking-widest"></span></h1>
+          <h1 className="text-4xl font-black tracking-tighter leading-none">{headerData.title || "e-Quotation"} <span className="text-[#D4AF37] block text-sm mt-2 tracking-widest"></span></h1>
+          {headerData.description && (
+            <div 
+              className="mt-4 text-sm font-medium whitespace-pre-wrap break-words overflow-hidden"
+              dangerouslySetInnerHTML={{ __html: (headerData.description || '').replace(/&nbsp;/g, ' ') }}
+            />
+          )}
         </div>
+
+        {quotations.length > 0 && (
+          <div className="p-10 border-b border-[#EADBC8] bg-gray-50/50">
+            <h2 className="text-2xl font-bold mb-6 text-[#8B5E3C]">Available Quotations</h2>
+            <div className="grid grid-cols-1 gap-6">
+              {quotations.map((item) => (
+                <div key={item._id} className="bg-white border border-[#EADBC8] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+                  {item.image && (
+                    <img 
+                      src={item.image.startsWith('http') ? item.image : `${IMAGE_BASE_URL}/${item.image.replace(/\\/g, '/')}`} 
+                      alt={item.title} 
+                      className="w-full h-48 object-cover" 
+                    />
+                  )}
+                  <div className="p-6 flex-1 flex flex-col overflow-hidden">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 break-words">{item.title}</h3>
+                    <div 
+                      className="text-sm text-gray-600 mb-4 whitespace-pre-wrap break-words overflow-hidden flex-1"
+                      dangerouslySetInnerHTML={{ __html: (item.description || '').replace(/&nbsp;/g, ' ') }}
+                    />
+                    {item.date && <p className="text-xs text-gray-400 mt-auto font-semibold">Published: {new Date(item.date).toLocaleDateString()}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="p-10">
           <AnimatePresence mode="wait">
