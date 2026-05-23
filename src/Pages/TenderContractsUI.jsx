@@ -33,7 +33,7 @@ export default function TenderContractsUI() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6] py-28 px-6 font-sans text-gray-900">
+    <div className="min-h-screen bg-[#FAF9F6] pt-28 pb-6 md:pb-28 px-6 font-sans text-gray-900">
       <div className="max-w-4xl mx-auto">
         <div className="border-b-4 border-[#8B5E3C] pb-6 mb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -43,7 +43,7 @@ export default function TenderContractsUI() {
               </h1>
               {headerData.description && (
                 <div 
-                  className="text-lg font-bold text-[#8B5E3C] mt-2 whitespace-pre-wrap break-words overflow-hidden"
+                  className="rich-text-content text-lg font-bold text-[#8B5E3C] mt-2 whitespace-pre-wrap break-words overflow-hidden"
                   dangerouslySetInnerHTML={{ __html: headerData.description.replace(/&nbsp;/g, ' ') }}
                 />
               )}
@@ -83,7 +83,7 @@ export default function TenderContractsUI() {
                   </div>
 
                   <div 
-                    className="text-sm text-gray-600 leading-relaxed mb-6 whitespace-pre-wrap break-words overflow-hidden"
+                    className="rich-text-content text-sm text-gray-600 leading-relaxed mb-6 whitespace-pre-wrap break-words overflow-hidden"
                     dangerouslySetInnerHTML={{ __html: (tender.description || '').replace(/&nbsp;/g, ' ') }}
                   />
 

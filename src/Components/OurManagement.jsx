@@ -52,7 +52,7 @@ export default function OurManagement() {
 
           {/* Content */}
           <div 
-            className="text-lg md:text-xl text-[#6B6B6B] leading-relaxed font-medium max-w-2xl mx-auto whitespace-pre-wrap break-words overflow-hidden"
+            className="rich-text-content text-left text-lg md:text-xl text-[#6B6B6B] leading-relaxed font-medium max-w-2xl mx-auto whitespace-pre-wrap break-words overflow-hidden"
             dangerouslySetInnerHTML={{ __html: (managementData.description || '').replace(/&nbsp;/g, ' ') }}
           />
         </div>

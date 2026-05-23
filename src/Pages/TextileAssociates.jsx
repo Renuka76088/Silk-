@@ -14,7 +14,7 @@ export default function Associates() {
         style={{
           maxWidth: "1000px",
           paddingTop: "120px", // Header height adjustment
-          paddingBottom: "50px"
+          paddingBottom: "15px"
         }}
       >
 

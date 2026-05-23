@@ -50,7 +50,7 @@ export default function VisitAppointment() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FCFBF7] py-32 px-6 font-sans">
+    <div className="min-h-screen bg-[#FCFBF7] pt-24 pb-8 md:py-32 px-6 font-sans">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <span className="text-[11px] font-black uppercase tracking-[0.5em] text-[#8B5E3C] block mb-4">Silk Corporate Office</span>

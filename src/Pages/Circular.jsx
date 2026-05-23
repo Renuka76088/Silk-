@@ -90,7 +90,7 @@ export default function Circular() {
       </div>
 
       {/* --- Main Content --- */}
-      <main className="relative pt-24 pb-16 px-4 md:px-8 max-w-5xl mx-auto">
+      <main className="relative pt-24 pb-6 md:pb-16 px-4 md:px-8 max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-light tracking-[5px] uppercase text-[#8b5a2b] mb-4">
             {headerData.title || "Circular"}

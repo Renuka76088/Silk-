@@ -72,7 +72,7 @@ export default function EAuctionForm() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-28 px-6 font-sans">
+    <div className="min-h-screen bg-slate-50 py-10 px-1 md:px-6 font-sans">
       <div className="max-w-4xl mx-auto">
         <div className="mb-12 text-center md:text-left">
           {/* <span className="text-[11px] font-black uppercase tracking-[0.4em] text-[#8B5E3C] block mb-2">Liquidation Portal</span> */}
@@ -81,29 +81,29 @@ export default function EAuctionForm() {
           </h1>
           {headerData.description && (
             <div
-              className="text-slate-500 font-medium text-sm mt-4 whitespace-pre-wrap break-words overflow-hidden"
+              className="rich-text-content text-slate-500 font-medium text-sm mt-4 whitespace-pre-wrap break-words overflow-hidden"
               dangerouslySetInnerHTML={{ __html: (headerData.description || '').replace(/&nbsp;/g, ' ') }}
             />
           )}
         </div>
 
         {auctions.length > 0 && (
-          <div className="mb-12 bg-white border border-slate-200 overflow-hidden shadow-sm rounded-sm p-8">
+          <div className="mb-12 bg-white border border-slate-200 overflow-hidden shadow-sm rounded-sm p-8 pl-2 pr-2 md:p-8">
             <h2 className="text-2xl font-bold mb-6 text-slate-900">Available Auctions</h2>
             <div className="grid grid-cols-1 gap-6">
               {auctions.map((item) => (
-                <div key={item._id} className="border border-slate-200 rounded-md overflow-hidden flex flex-col md:flex-row">
+                <div key={item._id} className="border border-slate-200 rounded-lg overflow-hidden flex flex-col md:flex-row bg-slate-50/50">
                   {item.image && (
                     <img
                       src={item.image.startsWith('http') ? item.image : `${IMAGE_BASE_URL}/${item.image.replace(/\\/g, '/')}`}
                       alt={item.title}
-                      className="w-full md:w-72 h-48 md:h-auto object-cover shrink-0"
+                      className="w-full md:w-72 h-48 md:h-56 object-cover shrink-0"
                     />
                   )}
                   <div className="p-6 flex-1 flex flex-col overflow-hidden">
                     <h3 className="text-lg font-bold text-slate-900 mb-2 break-words">{item.title}</h3>
                     <div
-                      className="text-sm text-slate-600 mb-4 whitespace-pre-wrap break-words overflow-hidden flex-1"
+                      className="rich-text-content text-sm text-slate-600 mb-4 whitespace-pre-wrap break-words overflow-hidden flex-1"
                       dangerouslySetInnerHTML={{ __html: (item.description || '').replace(/&nbsp;/g, ' ') }}
                     />
                     {item.date && <p className="text-xs text-slate-400 mt-auto font-semibold">Published: {new Date(item.date).toLocaleDateString()}</p>}

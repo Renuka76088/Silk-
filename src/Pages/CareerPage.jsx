@@ -72,7 +72,7 @@ export default function CareerPage() {
       </div>
 
       {/* Main Content */}
-      <main className="relative pt-10 pb-16 px-4 md:px-8 max-w-6xl mx-auto">
+      <main className="relative pt-10 pb-6 md:pb-16 px-4 md:px-8 max-w-6xl mx-auto">
 
         {/* Page Header */}
         <div className="text-center mb-12 md:mb-16">
@@ -81,7 +81,7 @@ export default function CareerPage() {
           </h1>
           {headerData.description && (
             <div 
-              className="text-lg md:text-xl text-gray-700 tracking-wide max-w-3xl mx-auto break-words overflow-hidden"
+              className="rich-text-content text-lg md:text-xl text-gray-700 tracking-wide max-w-3xl mx-auto break-words overflow-hidden"
               dangerouslySetInnerHTML={{ __html: headerData.description.replace(/&nbsp;/g, ' ') }}
             />
           )}
@@ -137,7 +137,7 @@ export default function CareerPage() {
                       <div>
                         <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#8b5a2b] mb-3">Description</h4>
                         <div 
-                          className="text-gray-600 leading-relaxed text-sm md:text-base whitespace-pre-wrap break-words overflow-hidden"
+                          className="rich-text-content text-gray-600 leading-relaxed text-sm md:text-base whitespace-pre-wrap break-words overflow-hidden"
                           dangerouslySetInnerHTML={{ __html: (job.description || '').replace(/&nbsp;/g, ' ') }}
                         />
                       </div>
@@ -145,7 +145,7 @@ export default function CareerPage() {
                         <div>
                           <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#8b5a2b] mb-3">Requirements</h4>
                           <div 
-                            className="text-gray-600 leading-relaxed text-sm md:text-base whitespace-pre-wrap break-words overflow-hidden"
+                            className="rich-text-content text-gray-600 leading-relaxed text-sm md:text-base whitespace-pre-wrap break-words overflow-hidden"
                             dangerouslySetInnerHTML={{ __html: (job.experience || '').replace(/&nbsp;/g, ' ') }}
                           />
                         </div>
