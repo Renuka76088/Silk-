@@ -67,6 +67,7 @@ export default function MediaGallery() {
             id: item._id,
             title: item.title,
             description: item.category || "Media Event",
+            date: item.date || item.createdAt,
             image: item.image?.startsWith("http") ? item.image : `${IMAGE_BASE_URL}/${item.image}`,
           }));
           setGalleryItems(dynamicItems);
@@ -140,7 +141,10 @@ export default function MediaGallery() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="absolute bottom-4  left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                 <h3 className="text-lg font-medium mb-1">{item.title}</h3>
-                <p className="text-sm opacity-90">{item.description}</p>
+                <p className="text-sm opacity-90">
+                  {item.description}
+                  {item.date && ` • ${new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`}
+                </p>
               </div>
             </div>
           ))}
