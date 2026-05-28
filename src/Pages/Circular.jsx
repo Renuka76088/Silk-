@@ -37,14 +37,32 @@ export default function Circular() {
     return url.startsWith('http') ? url : `${IMAGE_BASE_URL}/${url.replace(/\\/g, '/')}`;
   };
 
-  const handlePrint = (url) => {
+  const handlePrint = async (e, url) => {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
     const fullUrl = getFullUrl(url);
-    const win = window.open(fullUrl, '_blank');
-    if (win) {
-      win.focus();
-      setTimeout(() => {
-        try { win.print(); } catch (e) { }
-      }, 600);
+    
+    try {
+      const response = await fetch(fullUrl);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = blobUrl;
+      document.body.appendChild(iframe);
+      
+      iframe.onload = () => {
+        setTimeout(() => {
+          iframe.contentWindow.focus();
+          iframe.contentWindow.print();
+          setTimeout(() => document.body.removeChild(iframe), 1000);
+        }, 100);
+      };
+    } catch (error) {
+      console.error("Print failed via iframe:", error);
+      window.open(fullUrl, '_blank');
     }
   };
 
@@ -136,7 +154,7 @@ export default function Circular() {
                     <Eye className="w-4 h-4" /> View
                   </a>
                   <button
-                    onClick={() => handlePrint(circular.pdfUrl)}
+                    onClick={(e) => handlePrint(e, circular.pdfUrl)}
                     className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#8b5a2b] text-white hover:bg-[#6b4521] rounded-xl text-sm font-bold uppercase tracking-widest transition-colors"
                   >
                     <Printer className="w-4 h-4" /> Print
