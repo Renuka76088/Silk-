@@ -65,7 +65,7 @@ export default function Blog() {
 
         {/* Header Section with Campaign & Signature */}
         <div className="text-center mb-16 md:mb-24">
-          <h1 className="text-4xl md:text-5xl font-light tracking-[4px] uppercase text-[#8b5a2b] mb-8">
+          <h1 className="text-4xl md:text-5xl font-light tracking-[4px] text-[#8b5a2b] mb-8">
             {headerData.title || "Our Blog"}
           </h1>
           

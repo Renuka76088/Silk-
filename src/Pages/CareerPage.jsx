@@ -76,7 +76,7 @@ export default function CareerPage() {
 
         {/* Page Header */}
         <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl md:text-5xl font-light tracking-[5px] uppercase text-[#8b5a2b] mb-4">
+          <h1 className="text-4xl md:text-5xl font-light tracking-[5px] text-[#8b5a2b] mb-4">
             {headerData.title || "Join Our Team"}
           </h1>
           {headerData.description && (
@@ -100,11 +100,6 @@ export default function CareerPage() {
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
                   <div className="flex-grow">
                     <div className="flex items-center gap-3 mb-3">
-                      {job.jobType && (
-                        <span className="bg-[#f3e5d8] text-[#8b5a2b] px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
-                          {job.jobType}
-                        </span>
-                      )}
                       <span className="text-gray-400 text-xs font-medium italic">
                         Posted on {new Date(job.createdAt).toLocaleDateString()}
                       </span>
@@ -119,12 +114,6 @@ export default function CareerPage() {
                         <div className="flex items-center gap-2 text-gray-600">
                           <MapPin size={16} className="text-[#8b5a2b]" />
                           <span className="text-sm font-medium">{job.location}</span>
-                        </div>
-                      )}
-                      {job.type && (
-                        <div className="flex items-center gap-2 text-gray-600">
-                          <Clock size={16} className="text-[#8b5a2b]" />
-                          <span className="text-sm font-medium">{job.type}</span>
                         </div>
                       )}
                       <div className="flex items-center gap-2 text-gray-600">
