@@ -42,6 +42,7 @@ export const productApi = {
 
 export const managementApi = {
   getContent: (siteId) => api.get(`/management/content?siteId=${siteId}`),
+  getMembers: (siteId) => api.get(`/management/members?siteId=${siteId}`),
 };
 
 export const eQuotationApi = {
